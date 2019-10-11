@@ -1,0 +1,2 @@
+include ':app', ':furahitechpay'
+rootProject.name='FurahitechSelcomPayment'
