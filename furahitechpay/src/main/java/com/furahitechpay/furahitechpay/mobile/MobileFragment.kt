@@ -1,6 +1,8 @@
 package com.furahitechpay.furahitechpay.mobile
 
 import android.annotation.SuppressLint
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
@@ -31,10 +33,6 @@ import kotlin.properties.Delegates
 class MobileFragment : BaseFragment(), MobileView {
 
 
-    private val furahitechPay = FurahitechPay.instance
-
-    private lateinit var presenter: MobilePresenter
-
     private val mobileUiLabels = hashMapOf(
         "swa" to hashMapOf(
             LABEL_PAYMENT_INFO to "Taarifa za Malipo", LABEL_EXTRA_INFO to "Maelezo",
@@ -45,6 +43,12 @@ class MobileFragment : BaseFragment(), MobileView {
             LABEL_CONTACT_INFO to "Contact Information", LABEL_BUTTON_INFO to "Next",
             LABEL_BUTTON_PAY to "Pay Now",  LABEL_HOWTO_PAY to "Payment Instruction")
     )
+
+    private val furahitechPay = FurahitechPay.instance
+
+    private lateinit var presenter: MobilePresenter
+
+    private var isTokenRequest = true
 
     private var paymentPrices: ArrayList<Int> = arrayListOf()
 
@@ -85,6 +89,8 @@ class MobileFragment : BaseFragment(), MobileView {
     private lateinit var mainHolder: LinearLayout
 
     private var selectedPlan: Int = 0
+
+    private var currentToken = ""
 
     private val paymentRequest: PaymentRequest = furahitechPay.paymentRequest!!
 
@@ -135,9 +141,17 @@ class MobileFragment : BaseFragment(), MobileView {
         }
 
         startPaymentBtn.setOnClickListener {
-            val billing = furahitechPay.paymentBilling!!
-            billing.userPhone = "255${phoneNumberView.rawText}"
-            presenter.handleCreatingToken(paymentRequest, billing, currentMno, furahitechPay.authToken!!)
+           if(isTokenRequest){
+               isTokenRequest = false
+               val billing = furahitechPay.paymentBilling!!
+               billing.userPhone = "255${phoneNumberView.rawText}"
+               presenter.handleCreatingToken(paymentRequest, billing, currentMno, furahitechPay.authToken!!)
+           }else{
+               val clipboard = activity!!.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+               val clip = ClipData.newPlainText("payment-token", currentToken)
+               clipboard.setPrimaryClip(clip)
+               Toast.makeText(activity!!,"Umenakili tokeni", Toast.LENGTH_LONG)
+           }
         }
 
         languageMap = mobileUiLabels[if(furahitechPay.isEnglish) "en" else "swa"]!!
@@ -227,6 +241,7 @@ class MobileFragment : BaseFragment(), MobileView {
     }
 
     override fun showTokenResponse(response: TokenResponse) {
+        currentToken = response.paymentToken
         progressBar.visibility = GONE
         mainHolder.visibility = VISIBLE
         tokenDetailsHolder.visibility = VISIBLE
