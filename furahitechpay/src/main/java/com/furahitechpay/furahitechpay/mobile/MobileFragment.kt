@@ -5,9 +5,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
-import android.text.Editable
-import android.text.Html
-import android.text.TextWatcher
+import android.text.*
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -245,11 +243,16 @@ class MobileFragment : BaseFragment(), MobileView {
         progressBar.visibility = GONE
         mainHolder.visibility = VISIBLE
         tokenDetailsHolder.visibility = VISIBLE
-        howToPayInfo.text = Html.fromHtml(
+        val instruction: Spanned = if(furahitechPay.isEnglish) Html.fromHtml(
+            String.format(response.explanation,
+                "Which is ${response.paymentToken}", "Which is $selectedPrice"
+            ) + "<br/> Your payment token is <big><b> ${response.paymentToken}</b></big>"
+        ) else Html.fromHtml(
             String.format(response.explanation,
                 "Ambayo ni ${response.paymentToken}", "Ambacho ni $selectedPrice"
             ) + "<br/> Token namba yako ya malipo ni <big><b> ${response.paymentToken}</b></big>"
-        )
+        );
+        howToPayInfo.text = instruction
         startPaymentBtn.text = languageMap[LABEL_BUTTON_INFO]
     }
 
