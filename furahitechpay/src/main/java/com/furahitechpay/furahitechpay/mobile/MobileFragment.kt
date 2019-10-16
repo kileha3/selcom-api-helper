@@ -55,8 +55,6 @@ class MobileFragment : BaseFragment(), MobileView {
 
     private var paymentLabels: ArrayList<String> = arrayListOf()
 
-    private var selectedPrice by Delegates.notNull<Int>()
-
     private lateinit var startPaymentBtn: Button
 
     private lateinit var plansOptions: Spinner
@@ -93,12 +91,7 @@ class MobileFragment : BaseFragment(), MobileView {
 
     private val paymentRequest: PaymentRequest = furahitechPay.paymentRequest!!
 
-    private lateinit var payCallback: PayCallback
-
-    fun getInstance(payCallback: PayCallback): MobileFragment {
-        this.payCallback = payCallback
-        return MobileFragment()
-    }
+    private var selectedPrice = paymentRequest.amount
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -145,9 +138,10 @@ class MobileFragment : BaseFragment(), MobileView {
         startPaymentBtn.setOnClickListener {
            if(isTokenRequest){
                isTokenRequest = false
+               isCancelable = false
                val billing = furahitechPay.paymentBilling!!
                billing.userPhone = "255${phoneNumberView.rawText}"
-               presenter.handleCreatingToken(payCallback,paymentRequest, billing, currentMno, furahitechPay.authToken!!)
+               presenter.handleCreatingToken(callback,paymentRequest, billing, currentMno, furahitechPay.authToken!!)
            }else{
                val clipboard = activity!!.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                val clip = ClipData.newPlainText("payment-token", currentToken)
@@ -220,7 +214,7 @@ class MobileFragment : BaseFragment(), MobileView {
 
         }else{
             paymentInfoView.text = paymentRequest.paymentSummary
-            totalAmountView.text = formatPrice(paymentRequest.amount,paymentRequest.currency)
+            totalAmountView.text = formatPrice(selectedPrice,paymentRequest.currency)
         }
     }
 
@@ -273,5 +267,14 @@ class MobileFragment : BaseFragment(), MobileView {
 
     private fun formatPrice(price: Int, currency: String?): String {
         return  "${String.format("%,d", price)} ${(currency ?: "")}"
+    }
+
+    companion object{
+        lateinit var callback: PayCallback
+
+        fun getInstance(payCallback: PayCallback): MobileFragment {
+            this.callback = payCallback
+            return MobileFragment()
+        }
     }
 }

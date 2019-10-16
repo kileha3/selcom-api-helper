@@ -32,7 +32,7 @@ class FurahitechPay {
             error("Make sure billing information are filled out before proceeding")
         }
 
-        val baseFragment = if(isCardPayment) BaseFragment() else MobileFragment().getInstance(callback)
+        val baseFragment = if(isCardPayment) BaseFragment() else MobileFragment.getInstance(callback)
         baseFragment.show(activity!!.supportFragmentManager.beginTransaction(), baseFragment.toString())
     }
 

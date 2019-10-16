@@ -10,7 +10,6 @@ open class BaseFragment: BottomSheetDialogFragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        isCancelable = false
         val runnableList = runOnAttach.iterator()
         while (runnableList.hasNext()) {
             val current = runnableList.next()
