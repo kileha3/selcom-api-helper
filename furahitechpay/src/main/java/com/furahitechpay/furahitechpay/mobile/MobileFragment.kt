@@ -17,6 +17,7 @@ import android.widget.*
 import br.com.sapereaude.maskedEditText.MaskedEditText
 import com.furahitechpay.furahitechpay.FurahitechPay
 import com.furahitechpay.furahitechpay.R
+import com.furahitechpay.furahitechpay.callback.PayCallback
 import com.furahitechpay.furahitechpay.mobile.MobilePresenter.Companion.LABEL_BUTTON_INFO
 import com.furahitechpay.furahitechpay.mobile.MobilePresenter.Companion.LABEL_BUTTON_PAY
 import com.furahitechpay.furahitechpay.mobile.MobilePresenter.Companion.LABEL_CONTACT_INFO
@@ -92,7 +93,10 @@ class MobileFragment : BaseFragment(), MobileView {
 
     private val paymentRequest: PaymentRequest = furahitechPay.paymentRequest!!
 
-    fun getInstance(): MobileFragment {
+    private lateinit var payCallback: PayCallback
+
+    fun getInstance(payCallback: PayCallback): MobileFragment {
+        this.payCallback = payCallback
         return MobileFragment()
     }
 
@@ -143,7 +147,7 @@ class MobileFragment : BaseFragment(), MobileView {
                isTokenRequest = false
                val billing = furahitechPay.paymentBilling!!
                billing.userPhone = "255${phoneNumberView.rawText}"
-               presenter.handleCreatingToken(paymentRequest, billing, currentMno, furahitechPay.authToken!!)
+               presenter.handleCreatingToken(payCallback,paymentRequest, billing, currentMno, furahitechPay.authToken!!)
            }else{
                val clipboard = activity!!.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                val clip = ClipData.newPlainText("payment-token", currentToken)
@@ -181,13 +185,13 @@ class MobileFragment : BaseFragment(), MobileView {
     @SuppressLint("SetTextI18n")
     private fun updateAmount(){
         paymentRequest.amount = selectedPrice
-        totalAmountView.text = "$selectedPrice ${paymentRequest.currency}"
+        totalAmountView.text = formatPrice(selectedPrice,paymentRequest.currency)
         paymentInfoView.text = paymentRequest.paymentSummary + " " + paymentLabels[selectedPlan]
         paymentRequest.duration = paymentDuration[selectedPlan]
     }
 
     private fun setUpPaymentOptions(){
-        val visibility = if(furahitechPay.paymentRequest!!.paymentPlans.toList().isNotEmpty()) View.VISIBLE else View.GONE
+        val visibility = if(furahitechPay.paymentRequest!!.paymentPlans.toList().isNotEmpty()) VISIBLE else View.GONE
         plansOptions.visibility = visibility
 
         if(furahitechPay.paymentRequest!!.paymentPlans.isNotEmpty()){
@@ -214,6 +218,9 @@ class MobileFragment : BaseFragment(), MobileView {
                 plansOptions.setSelection(selectedPlan,true)
             }
 
+        }else{
+            paymentInfoView.text = paymentRequest.paymentSummary
+            totalAmountView.text = formatPrice(paymentRequest.amount,paymentRequest.currency)
         }
     }
 
@@ -262,5 +269,9 @@ class MobileFragment : BaseFragment(), MobileView {
         paymentDetailsHolder.visibility = GONE
         contactDetailsHolder.visibility = GONE
 
+    }
+
+    private fun formatPrice(price: Int, currency: String?): String {
+        return  "${String.format("%,d", price)} ${(currency ?: "")}"
     }
 }

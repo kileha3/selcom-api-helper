@@ -2,6 +2,7 @@ package com.furahitechpay.furahitechpay.mobile
 
 import androidx.core.content.ContextCompat
 import com.furahitechpay.furahitechpay.R
+import com.furahitechpay.furahitechpay.callback.PayCallback
 import com.furahitechpay.furahitechpay.model.BillingInfo
 import com.furahitechpay.furahitechpay.model.PaymentRequest
 import com.furahitechpay.furahitechpay.model.TokenResponse
@@ -61,14 +62,17 @@ class MobilePresenter(view: MobileView) : BasePresenter<MobileView>(view) {
         view.setButtonProps(colorBg, colorTxt)
     }
 
-    fun handleCreatingToken(paymentRequest: PaymentRequest, billingInfo: BillingInfo, mno: Int, token: String){
+    fun handleCreatingToken(payCallback: PayCallback,paymentRequest: PaymentRequest, billingInfo: BillingInfo, mno: Int, token: String){
         handleButtonEnabling(false)
         view.showProgressVisible(true)
-        val paymentData = listOf(
+        var paymentData = listOf(
             "payment_duration" to paymentRequest.duration,
             "payment_email" to billingInfo.userEmail, "payment_amount" to paymentRequest.amount,
             "payment_phone" to billingInfo.userPhone, "payment_product" to paymentRequest.productId,
             "payment_remarks" to paymentRequest.remarks, "mno" to mno)
+        if(paymentRequest.orderId.isNotEmpty()){
+            paymentData = paymentData.plus("order_id" to paymentRequest.orderId)
+        }
 
         GlobalScope.launch {
             val (_, _, result) = Fuel
@@ -79,8 +83,10 @@ class MobilePresenter(view: MobileView) : BasePresenter<MobileView>(view) {
                 { data -> view.runOnUiThread(Runnable {
                     handleButtonEnabling(true)
                     view.showTokenResponse(data)
+                    data.explanation = ""
+                    payCallback.onSuccess(data)
                 })},
-                { error -> println("An error of type ${error.exception} happened: ${error.message}") }
+                { error -> payCallback.onFailre(error.message!!) }
             )
         }
     }

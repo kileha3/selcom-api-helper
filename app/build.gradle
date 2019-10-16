@@ -22,14 +22,6 @@ android {
         }
     }
 
-    repositories {
-        maven {
-            url 'https://jitpack.io'
-            credentials { username authToken }
-        }
-
-    }
-
     packagingOptions {
         exclude 'META-INF/kotlinx-io.kotlin_module'
         exclude 'META-INF/atomicfu.kotlin_module'
@@ -52,5 +44,5 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    implementation 'com.github.kileha3:SelcomApiHelper:v0.1'
+    implementation project(":furahitechpay")
 }
