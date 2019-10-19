@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         furahitechPay.activity = this
         furahitechPay.isEnglish = false
-        furahitechPay.isCardPayment = false
+        furahitechPay.isCardPayment = true
         furahitechPay.paymentRequest = request
         furahitechPay.paymentBilling = billing
         furahitechPay.authToken = "d14f3a80-3f0d-4053-832d-cac163daaf17"

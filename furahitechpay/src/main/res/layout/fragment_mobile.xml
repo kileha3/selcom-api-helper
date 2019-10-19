@@ -9,7 +9,6 @@
     android:layout_height="wrap_content"
     android:background="@color/colorWhite"
     android:elevation="@dimen/dimen_16dp"
-    android:orientation="vertical"
     android:padding="@dimen/dimen_16dp"
     app:behavior_hideable="true"
     app:behavior_peekHeight="0dp"
@@ -41,7 +40,7 @@
                     android:layout_weight="2"
                     android:text="Taarifa za Malipo"
                     android:textColor="#444"
-                    android:textSize="18dp"
+                    android:textSize="@dimen/dimen_text_18sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -51,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textStyle="bold"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/text_15sp"
                     android:text="435.00"/>
             </LinearLayout>
 
@@ -106,7 +105,7 @@
                     android:layout_weight="2"
                     android:text="Taarifa za Mawasiliano"
                     android:textColor="#444"
-                    android:textSize="18dp"
+                    android:textSize="@dimen/dimen_text_18sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -142,7 +141,7 @@
                     android:maxLines="1"
                     mask:allowed_chars="1234567890"
                     mask:mask="+255(###) ###-###"
-                    android:hint="712000000"
+                    android:hint="@string/phone_number"
                     app:keep_hint="true"
                     />
 

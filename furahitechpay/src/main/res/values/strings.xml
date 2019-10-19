@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">FurahitechPay</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="billing_information">Billing Information</string>
+    <string name="full_name">Full name</string>
+    <string name="email_address">Email address</string>
+    <string name="street_address">Street name</string>
+    <string name="address_region">Region name</string>
+    <string name="address_city">City name</string>
+    <string name="phone_number">712000000</string>
+    <string name="summary">Payment summary</string>
+    <string name="pay_now">Pay now</string>
 </resources>

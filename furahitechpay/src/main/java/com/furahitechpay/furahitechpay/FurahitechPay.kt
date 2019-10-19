@@ -2,6 +2,7 @@ package com.furahitechpay.furahitechpay
 
 import androidx.fragment.app.FragmentActivity
 import com.furahitechpay.furahitechpay.callback.PayCallback
+import com.furahitechpay.furahitechpay.card.CardFragment
 import com.furahitechpay.furahitechpay.mobile.MobileFragment
 import com.furahitechpay.furahitechpay.util.BaseFragment
 import com.furahitechpay.furahitechpay.model.BillingInfo
@@ -32,7 +33,7 @@ class FurahitechPay {
             error("Make sure billing information are filled out before proceeding")
         }
 
-        val baseFragment = if(isCardPayment) BaseFragment() else MobileFragment.getInstance(callback)
+        val baseFragment = if(isCardPayment) CardFragment.getInstance(callback) else MobileFragment.getInstance(callback)
         baseFragment.show(activity!!.supportFragmentManager.beginTransaction(), baseFragment.toString())
     }
 

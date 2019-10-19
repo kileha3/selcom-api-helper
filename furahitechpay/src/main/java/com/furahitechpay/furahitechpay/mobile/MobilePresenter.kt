@@ -76,7 +76,7 @@ class MobilePresenter(view: MobileView) : BasePresenter<MobileView>(view) {
 
         GlobalScope.launch {
             val (_, _, result) = Fuel
-                .post("https://apis.furahitech.co.tz/v1/payment/auth/mobile", paymentData)
+                .post("https://apis.furahitech.co.tz/core/v1/payment/auth/mobile", paymentData)
                 .header(mapOf("x-api-key" to token))
                 .awaitObjectResponseResult(TokenResponse.TokenResponseSerializer())
             result.fold(

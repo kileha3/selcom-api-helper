@@ -27,7 +27,6 @@ import com.furahitechpay.furahitechpay.mobile.MobilePresenter.Companion.LABEL_PA
 import com.furahitechpay.furahitechpay.model.PaymentRequest
 import com.furahitechpay.furahitechpay.model.TokenResponse
 import com.furahitechpay.furahitechpay.util.BaseFragment
-import kotlin.properties.Delegates
 
 class MobileFragment : BaseFragment(), MobileView {
 
@@ -39,8 +38,8 @@ class MobileFragment : BaseFragment(), MobileView {
             LABEL_BUTTON_PAY to "Tengeneza Tokeni", LABEL_HOWTO_PAY to "Jinsi ya kulipia"),
         "en" to hashMapOf(
             LABEL_PAYMENT_INFO to "Payment Information", LABEL_EXTRA_INFO to "Extra Information",
-            LABEL_CONTACT_INFO to "Contact Information", LABEL_BUTTON_INFO to "Next",
-            LABEL_BUTTON_PAY to "Pay Now",  LABEL_HOWTO_PAY to "Payment Instruction")
+            LABEL_CONTACT_INFO to "Contact Information", LABEL_BUTTON_INFO to "Copy Token",
+            LABEL_BUTTON_PAY to "Generate Token",  LABEL_HOWTO_PAY to "Payment Instruction")
     )
 
     private val furahitechPay = FurahitechPay.instance
@@ -96,7 +95,7 @@ class MobileFragment : BaseFragment(), MobileView {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        val view = inflater.inflate(R.layout.mobile_layout_view, container, false)
+        val view = inflater.inflate(R.layout.fragment_mobile, container, false)
 
         startPaymentBtn = view.findViewById(R.id.action_pay)
         plansOptions = view.findViewById(R.id.payment_length)
@@ -272,8 +271,8 @@ class MobileFragment : BaseFragment(), MobileView {
     companion object{
         lateinit var callback: PayCallback
 
-        fun getInstance(payCallback: PayCallback): MobileFragment {
-            this.callback = payCallback
+        fun getInstance(callback: PayCallback): MobileFragment {
+            this.callback = callback
             return MobileFragment()
         }
     }
