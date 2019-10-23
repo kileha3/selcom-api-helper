@@ -10,7 +10,7 @@ import com.furahitechpay.furahitechpay.model.PaymentRequest
 
 class FurahitechPay {
 
-    var isCardPayment: Boolean = false
+    var paymentType: Int = 2
 
     var isEnglish: Boolean = false
 
@@ -29,16 +29,27 @@ class FurahitechPay {
             error("Make sure payment request is created before sending an actual request")
         }
 
-        if(isCardPayment && paymentBilling == null){
+        if((paymentType == PAYMENT_CARD || paymentType == PAYMENT_ALL) && paymentBilling == null){
             error("Make sure billing information are filled out before proceeding")
         }
 
-        val baseFragment = if(isCardPayment) CardFragment.getInstance(callback) else MobileFragment.getInstance(callback)
+        val baseFragment = when (paymentType) {
+            PAYMENT_CARD -> CardFragment.getInstance(callback)
+            PAYMENT_MOBILE -> MobileFragment.getInstance(callback)
+            else -> BaseFragment()
+        }
+
         baseFragment.show(activity!!.supportFragmentManager.beginTransaction(), baseFragment.toString())
     }
 
 
     companion object{
         val instance = FurahitechPay()
+
+        const val PAYMENT_CARD = 1
+
+        const val PAYMENT_MOBILE = 2
+
+        const val PAYMENT_ALL = 3
     }
 }

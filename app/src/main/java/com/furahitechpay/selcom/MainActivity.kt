@@ -3,6 +3,7 @@ package com.furahitechpay.selcom
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.furahitechpay.furahitechpay.FurahitechPay
+import com.furahitechpay.furahitechpay.FurahitechPay.Companion.PAYMENT_CARD
 import com.furahitechpay.furahitechpay.callback.PayCallback
 import com.furahitechpay.furahitechpay.model.BillingInfo
 import com.furahitechpay.furahitechpay.model.PaymentRequest
@@ -32,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
         furahitechPay.activity = this
         furahitechPay.isEnglish = false
-        furahitechPay.isCardPayment = true
+        furahitechPay.paymentType = PAYMENT_CARD
         furahitechPay.paymentRequest = request
         furahitechPay.paymentBilling = billing
         furahitechPay.authToken = "d14f3a80-3f0d-4053-832d-cac163daaf17"
