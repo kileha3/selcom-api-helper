@@ -19,7 +19,11 @@ class MainActivity : AppCompatActivity() {
         val request = PaymentRequest(
             amount = 4500,
             remarks = "subscription", paymentSummary = "Malipo kwa ajili ya ",
-            paymentForWhat = "Ondoa matangazo na pata ruhusa kwenye vilivyo fungwa")
+            paymentForWhat = "Ondoa matangazo na pata ruhusa kwenye vilivyo fungwa",
+            paymentPlans = mutableMapOf(
+                "One Month" to mutableMapOf(1 to 3000),
+                "Two Months" to mutableMapOf(1 to 6000)
+            ))
 
         val billing = BillingInfo(
             userEmail = "lkileha@gmail.com",
@@ -32,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         )
 
         furahitechPay.activity = this
-        furahitechPay.isEnglish = false
+        furahitechPay.isEnglish = true
         furahitechPay.paymentType = PAYMENT_CARD
         furahitechPay.paymentRequest = request
         furahitechPay.paymentBilling = billing

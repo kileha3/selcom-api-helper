@@ -1,6 +1,7 @@
 package com.furahitechpay.furahitechpay.util
 
 import android.content.Context
+import com.furahitechpay.furahitechpay.model.TokenResponse
 
 interface BaseView {
 
@@ -25,4 +26,10 @@ interface BaseView {
      * @param show Boolean flag to indicate whether progress is shown oe not.
      */
     fun showProgressVisible(show: Boolean)
+
+    fun setButtonProps(btnColor: Int, txtColor: Int)
+
+    fun setButtonEnabled(enabled: Boolean)
+
+    fun showPaymentResponse(response: TokenResponse)
 }

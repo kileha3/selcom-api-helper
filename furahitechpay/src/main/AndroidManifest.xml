@@ -1,1 +1,11 @@
-<manifest package="com.furahitechpay.furahitechpay" />
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.furahitechpay.furahitechpay">
+
+    <application>
+        <activity
+            android:theme="@style/AppTheme"
+            android:name=".card.CardPaymentRedirection"/>
+    </application>
+
+</manifest>

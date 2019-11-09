@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/white"
+    android:id="@+id/coordinationLayout">
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/AppBarLayout"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:elevation="@dimen/dimen_8dp"
+        app:elevation="@dimen/dimen_8dp"
+        android:layout_height="wrap_content"
+        tools:targetApi="lollipop">
+        <include
+            layout="@layout/default_toolbar_view"/>
+        <ProgressBar
+            android:progressDrawable="@drawable/progress_bar_drawable"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="2dp" />
+    </com.google.android.material.appbar.AppBarLayout>
+    <WebView
+        android:layout_below="@+id/AppBarLayout"
+        android:id="@+id/secure_web"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</RelativeLayout>

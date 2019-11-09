@@ -36,7 +36,7 @@ class FurahitechPay {
         val baseFragment = when (paymentType) {
             PAYMENT_CARD -> CardFragment.getInstance(callback)
             PAYMENT_MOBILE -> MobileFragment.getInstance(callback)
-            else -> BaseFragment()
+            else -> PaymentOptions.getInstance(callback)
         }
 
         baseFragment.show(activity!!.supportFragmentManager.beginTransaction(), baseFragment.toString())

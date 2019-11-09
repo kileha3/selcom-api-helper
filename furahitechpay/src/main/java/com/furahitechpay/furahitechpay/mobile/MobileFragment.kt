@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import br.com.sapereaude.maskedEditText.MaskedEditText
 import com.furahitechpay.furahitechpay.FurahitechPay
 import com.furahitechpay.furahitechpay.R
@@ -27,6 +28,7 @@ import com.furahitechpay.furahitechpay.mobile.MobilePresenter.Companion.LABEL_PA
 import com.furahitechpay.furahitechpay.model.PaymentRequest
 import com.furahitechpay.furahitechpay.model.TokenResponse
 import com.furahitechpay.furahitechpay.util.BaseFragment
+import com.google.android.material.snackbar.Snackbar
 
 class MobileFragment : BaseFragment(), MobileView {
 
@@ -84,6 +86,8 @@ class MobileFragment : BaseFragment(), MobileView {
 
     private lateinit var mainHolder: LinearLayout
 
+    private lateinit var coordinatorLayout: CoordinatorLayout
+
     private var selectedPlan: Int = 0
 
     private var currentToken = ""
@@ -110,6 +114,7 @@ class MobileFragment : BaseFragment(), MobileView {
         howToPayInfo = view.findViewById(R.id.instruction_content)
         mainHolder = view.findViewById(R.id.main_holder)
         closeInstruction = view.findViewById(R.id.close_instruction)
+        coordinatorLayout = view.findViewById(R.id.bottom_sheet)
 
         phoneNumberView.addTextChangedListener(object : TextWatcher{
             override fun afterTextChanged(p0: Editable?) {}
@@ -150,6 +155,7 @@ class MobileFragment : BaseFragment(), MobileView {
         }
 
         languageMap = mobileUiLabels[if(furahitechPay.isEnglish) "en" else "swa"]!!
+
 
         setUpPaymentOptions()
 
@@ -225,7 +231,7 @@ class MobileFragment : BaseFragment(), MobileView {
     override fun getBaseContext(): Context { return activity!!}
 
     override fun showError(message: String) {
-
+        Snackbar.make(coordinatorLayout,message,Snackbar.LENGTH_LONG).show()
     }
 
     override fun setButtonProps(btnColor: Int, txtColor: Int) {
@@ -238,17 +244,17 @@ class MobileFragment : BaseFragment(), MobileView {
         startPaymentBtn.isEnabled = enabled
     }
 
-    override fun showTokenResponse(response: TokenResponse) {
+    override fun showPaymentResponse(response: TokenResponse) {
         currentToken = response.paymentToken
         progressBar.visibility = GONE
         mainHolder.visibility = VISIBLE
         tokenDetailsHolder.visibility = VISIBLE
         val instruction: Spanned = if(furahitechPay.isEnglish) Html.fromHtml(
-            String.format(response.explanation,
+            String.format(response.instructions,
                 "Which is ${response.paymentToken}", "Which is $selectedPrice"
             ) + "<br/> Your payment token is <big><b> ${response.paymentToken}</b></big>"
         ) else Html.fromHtml(
-            String.format(response.explanation,
+            String.format(response.instructions,
                 "Ambayo ni ${response.paymentToken}", "Ambacho ni $selectedPrice"
             ) + "<br/> Token namba yako ya malipo ni <big><b> ${response.paymentToken}</b></big>"
         );
@@ -264,12 +270,13 @@ class MobileFragment : BaseFragment(), MobileView {
 
     }
 
-    private fun formatPrice(price: Int, currency: String?): String {
-        return  "${String.format("%,d", price)} ${(currency ?: "")}"
-    }
 
     companion object{
         lateinit var callback: PayCallback
+
+        fun formatPrice(price: Int, currency: String?): String {
+            return  "${String.format("%,d", price)} ${(currency ?: "")}"
+        }
 
         fun getInstance(callback: PayCallback): MobileFragment {
             this.callback = callback

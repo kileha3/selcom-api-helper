@@ -82,8 +82,8 @@ class MobilePresenter(view: MobileView) : BasePresenter<MobileView>(view) {
             result.fold(
                 { data -> view.runOnUiThread(Runnable {
                     handleButtonEnabling(true)
-                    view.showTokenResponse(data)
-                    data.explanation = ""
+                    view.showPaymentResponse(data)
+                    data.instructions = ""
                     payCallback.onSuccess(data)
                 })},
                 { error -> payCallback.onFailre(error.message!!) }
