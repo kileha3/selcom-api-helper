@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         furahitechPay.paymentType = PAYMENT_CARD
         furahitechPay.paymentRequest = request
         furahitechPay.paymentBilling = billing
-        furahitechPay.authToken = "d14f3a80-3f0d-4053-832d-cac163daaf17"
+        furahitechPay.authToken = ""
         furahitechPay.payNow(object : PayCallback{
             override fun onFailre(message: String) {
                 println("Failure message =$message")
