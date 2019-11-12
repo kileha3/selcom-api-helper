@@ -150,7 +150,7 @@ class MobileFragment : BaseFragment(), MobileView {
                val clipboard = activity!!.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                val clip = ClipData.newPlainText("payment-token", currentToken)
                clipboard.setPrimaryClip(clip)
-               Toast.makeText(activity!!,"Umenakili tokeni", Toast.LENGTH_LONG).show()
+               Toast.makeText(activity!!, if(furahitechPay.isEnglish)  "Token copied" else "Umenakili tokeni", Toast.LENGTH_LONG).show()
            }
         }
 
