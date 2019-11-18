@@ -88,11 +88,11 @@ class MobileFragment : BaseFragment(), MobileView {
 
     private lateinit var coordinatorLayout: CoordinatorLayout
 
-    private var selectedPlan: Int = 0
-
     private var currentToken = ""
 
     private val paymentRequest: PaymentRequest = furahitechPay.paymentRequest!!
+
+    private var selectedPlan: Int = paymentRequest.preSelectedPlan
 
     private var selectedPrice = paymentRequest.amount
 

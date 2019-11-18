@@ -24,8 +24,6 @@ import com.furahitechpay.furahitechpay.model.PaymentRequest
 import com.furahitechpay.furahitechpay.model.TokenResponse
 import com.furahitechpay.furahitechpay.util.BaseFragment
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
 
 class CardFragment : BaseFragment(), CardView, PayCallback{
@@ -84,9 +82,10 @@ class CardFragment : BaseFragment(), CardView, PayCallback{
 
     private lateinit var coordinatorLayout: CoordinatorLayout
 
-    private var selectedPlan: Int = 0
 
     private val paymentRequest: PaymentRequest = furahitechPay.paymentRequest!!
+
+    private var selectedPlan: Int = paymentRequest.preSelectedPlan
 
     private var selectedPrice = paymentRequest.amount
 
