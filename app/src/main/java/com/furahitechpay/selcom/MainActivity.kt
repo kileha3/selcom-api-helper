@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.furahitechpay.furahitechpay.FurahitechPay
 import com.furahitechpay.furahitechpay.FurahitechPay.Companion.PAYMENT_CARD
+import com.furahitechpay.furahitechpay.FurahitechPay.Companion.PAYMENT_MOBILE
 import com.furahitechpay.furahitechpay.callback.PayCallback
 import com.furahitechpay.furahitechpay.model.BillingInfo
 import com.furahitechpay.furahitechpay.model.PaymentRequest
@@ -16,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val furahitechPay = FurahitechPay.instance
-        val request = PaymentRequest(
+        val request = PaymentRequest( basePlan = "week",
             amount = 4500,
             remarks = "subscription", paymentSummary = "Malipo kwa ajili ya ",
             paymentForWhat = "Ondoa matangazo na pata ruhusa kwenye vilivyo fungwa",
@@ -37,10 +38,10 @@ class MainActivity : AppCompatActivity() {
 
         furahitechPay.activity = this
         furahitechPay.isEnglish = true
-        furahitechPay.paymentType = PAYMENT_CARD
+        furahitechPay.paymentType = PAYMENT_MOBILE
         furahitechPay.paymentRequest = request
         furahitechPay.paymentBilling = billing
-        furahitechPay.authToken = ""
+        furahitechPay.authToken = "DummyToken"
         furahitechPay.payNow(object : PayCallback{
             override fun onFailre(message: String) {
                 println("Failure message =$message")

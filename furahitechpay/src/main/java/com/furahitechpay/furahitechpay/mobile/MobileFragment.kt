@@ -190,12 +190,12 @@ class MobileFragment : BaseFragment(), MobileView {
     }
 
     private fun setUpPaymentOptions(){
-        val visibility = if(furahitechPay.paymentRequest!!.paymentPlans.toList().isNotEmpty()) VISIBLE else View.GONE
+        val visibility = if(furahitechPay.paymentRequest!!.paymentPlans.toList().isNotEmpty()) VISIBLE else GONE
         plansOptions.visibility = visibility
 
         if(furahitechPay.paymentRequest!!.paymentPlans.isNotEmpty()){
             furahitechPay.paymentRequest!!.paymentPlans.toList().forEach {
-                paymentDuration.add(it.second.toList()[0].first * if(paymentRequest.basePlan == "Month") 30 else 7)
+                paymentDuration.add(it.second.toList()[0].first * if(paymentRequest.basePlan.toLowerCase() == "month") 30 else if(paymentRequest.basePlan.toLowerCase() == "week") 7 else 1)
                 paymentPrices.add(it.second.toList()[0].second)
                 paymentLabels.add("${it.first}  ${it.second.toList()[0].second}/= ${paymentRequest.currency}")
             }
