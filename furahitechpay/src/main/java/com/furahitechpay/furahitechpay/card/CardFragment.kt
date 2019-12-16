@@ -8,13 +8,16 @@ import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.*
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import br.com.sapereaude.maskedEditText.MaskedEditText
 import com.furahitechpay.furahitechpay.FurahitechPay
+import com.furahitechpay.furahitechpay.FurahitechPay.Companion.hideKeyboard
 import com.furahitechpay.furahitechpay.R
 import com.furahitechpay.furahitechpay.callback.PayCallback
 import com.furahitechpay.furahitechpay.card.CardPaymentRedirection.Companion.REDIRECTION_URL
@@ -37,7 +40,7 @@ class CardFragment : BaseFragment(), CardView, PayCallback{
         "en" to hashMapOf(
             MobilePresenter.LABEL_PAYMENT_INFO to "Payment Information",
             MobilePresenter.LABEL_EXTRA_INFO to "Extra Information",
-            MobilePresenter.LABEL_CONTACT_INFO to "Billing Information",
+            MobilePresenter.LABEL_CONTACT_INFO to "Contact Information",
             MobilePresenter.LABEL_BUTTON_PAY to "Start Payment")
     )
 
@@ -74,12 +77,6 @@ class CardFragment : BaseFragment(), CardView, PayCallback{
 
     private lateinit var progressBar: ProgressBar
 
-    private lateinit var streetAddress: EditText
-
-    private lateinit var cityAddress: EditText
-
-    private lateinit var regionAddress: EditText
-
     private lateinit var coordinatorLayout: CoordinatorLayout
 
 
@@ -106,14 +103,9 @@ class CardFragment : BaseFragment(), CardView, PayCallback{
         paymentInfoView = view.findViewById(R.id.payment_info)
         phoneNumberView = view.findViewById(R.id.phone_number)
         progressBar = view.findViewById(R.id.progress_bar)
-        streetAddress = view.findViewById(R.id.street_address)
-        cityAddress = view.findViewById(R.id.address_city)
-        regionAddress = view.findViewById(R.id.address_region)
         mainHolder = view.findViewById(R.id.main_holder)
         coordinatorLayout = view.findViewById(R.id.bottom_sheet)
 
-        view.findViewById<EditText>(R.id.full_name).setText("${furahitechPay.paymentBilling?.userFirstName} ${furahitechPay.paymentBilling?.userLastName}")
-        view.findViewById<EditText>(R.id.email_address).setText(furahitechPay.paymentBilling?.userEmail)
         phoneNumberView.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {}
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -134,19 +126,10 @@ class CardFragment : BaseFragment(), CardView, PayCallback{
         startPaymentBtn.setOnClickListener {
             val billing = furahitechPay.paymentBilling!!
             billing.userPhone = "255${phoneNumberView.rawText}"
-            billing.userCity = cityAddress.text.toString()
-            billing.userRegion = regionAddress.text.toString()
-            billing.userAdress = streetAddress.text.toString()
             presenter.handleGetRedirection(paymentRequest, billing, furahitechPay.authToken!!, payCallback)
         }
 
         phoneNumberView.addTextChangedListener(textWatcher)
-
-        regionAddress.addTextChangedListener(textWatcher)
-
-        streetAddress.addTextChangedListener(textWatcher)
-
-        cityAddress.addTextChangedListener(textWatcher)
 
 
         return view
@@ -197,6 +180,17 @@ class CardFragment : BaseFragment(), CardView, PayCallback{
             paymentInfoView.text = paymentRequest.paymentSummary
             totalAmountView.text = formatPrice(selectedPrice,paymentRequest.currency)
         }
+
+        phoneNumberView.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                val view1 = activity!!.currentFocus
+                if (view1 != null) {
+                    hideKeyboard(activity!!)
+                }
+            }
+            false
+        }
+
     }
 
     @SuppressLint("SetTextI18n")
@@ -210,9 +204,7 @@ class CardFragment : BaseFragment(), CardView, PayCallback{
 
 
     override fun checkEmptyFields() {
-        val enableBtn = isNoEmpty(cityAddress) && isNoEmpty(regionAddress)
-                && isNoEmpty(phoneNumberView) && isNoEmpty(streetAddress)
-        presenter.handleButtonEnabling(enableBtn)
+        presenter.handleButtonEnabling(isNoEmpty(phoneNumberView) && phoneNumberView.rawText.length > 4)
 
     }
 
@@ -224,6 +216,10 @@ class CardFragment : BaseFragment(), CardView, PayCallback{
 
     override fun showPaymentResponse(response: TokenResponse) {
 
+    }
+
+    override fun dismissDialog() {
+        dismiss()
     }
 
     override fun setButtonProps(btnColor: Int, txtColor: Int) {
@@ -243,17 +239,18 @@ class CardFragment : BaseFragment(), CardView, PayCallback{
         progressBar.visibility = View.VISIBLE
     }
 
+    @ExperimentalStdlibApi
     override fun onSuccess(tokenResponse: TokenResponse) {
         showProgressVisible(false)
         val intent = Intent(activity, CardPaymentRedirection::class.java)
-        intent.putExtra(REDIRECTION_URL,tokenResponse.instructions)
-        dismiss()
+        intent.putExtra(REDIRECTION_URL, Base64.decode(tokenResponse.instructions, Base64.DEFAULT).decodeToString())
+        dismissDialog()
         startActivity(intent)
     }
 
     override fun onFailre(message: String) {
-        showError(if(FurahitechPay.instance.isEnglish) "Payment didn't go through, try gain" else "Malipo hayakukamilika, jaribu tena")
-        Handler().postDelayed({ dismiss() }, TimeUnit.SECONDS.toMillis(2))
+        showError(if(FurahitechPay.instance.isEnglish) "Payment flow didn't start successfully, try gain later" else "Malipo hayakufanikiwa kuanza, jaribu tena baadae")
+        Handler().postDelayed({ dismissDialog() }, TimeUnit.SECONDS.toMillis(2))
     }
 
 

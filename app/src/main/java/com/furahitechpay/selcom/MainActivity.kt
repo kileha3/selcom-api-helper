@@ -3,6 +3,7 @@ package com.furahitechpay.selcom
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.furahitechpay.furahitechpay.FurahitechPay
+import com.furahitechpay.furahitechpay.FurahitechPay.Companion.PAYMENT_ALL
 import com.furahitechpay.furahitechpay.FurahitechPay.Companion.PAYMENT_CARD
 import com.furahitechpay.furahitechpay.FurahitechPay.Companion.PAYMENT_MOBILE
 import com.furahitechpay.furahitechpay.callback.PayCallback
@@ -29,19 +30,15 @@ class MainActivity : AppCompatActivity() {
         val billing = BillingInfo(
             userEmail = "lkileha@gmail.com",
             userFirstName = "Lukundo",
-            userLastName = "Kileha",
-            userAdress = "Miyuji, Proper",
-            userCity = "Dodoma",
-            userRegion = "Dodoma",
-            userCountry = "Tanzania"
+            userLastName = "Kileha"
         )
 
         furahitechPay.activity = this
         furahitechPay.isEnglish = true
-        furahitechPay.paymentType = PAYMENT_MOBILE
+        furahitechPay.paymentType = PAYMENT_ALL
         furahitechPay.paymentRequest = request
         furahitechPay.paymentBilling = billing
-        furahitechPay.authToken = "DummyToken"
+        furahitechPay.authToken = "Dummy"
         furahitechPay.payNow(object : PayCallback{
             override fun onFailre(message: String) {
                 println("Failure message =$message")

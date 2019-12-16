@@ -13,7 +13,7 @@
     <TextView
         android:textColor="@color/colorWhite"
         android:gravity="center_vertical"
-        android:textSize="@dimen/dimen_text_18sp"
+        android:textSize="@dimen/text_18sp"
         android:id="@+id/tool_bar_title"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

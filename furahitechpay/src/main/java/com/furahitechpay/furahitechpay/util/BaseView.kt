@@ -32,4 +32,6 @@ interface BaseView {
     fun setButtonEnabled(enabled: Boolean)
 
     fun showPaymentResponse(response: TokenResponse)
+
+    fun dismissDialog()
 }

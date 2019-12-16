@@ -2,23 +2,22 @@ package com.furahitechpay.furahitechpay.card
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
-import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.view.KeyEvent
 import android.view.MenuItem
 import android.view.View
-import android.webkit.WebChromeClient
-import android.webkit.WebSettings
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import android.webkit.*
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.furahitechpay.furahitechpay.FurahitechPay
 import com.furahitechpay.furahitechpay.R
+import java.util.concurrent.TimeUnit
 
 
 class CardPaymentRedirection : AppCompatActivity() {
@@ -44,7 +43,7 @@ class CardPaymentRedirection : AppCompatActivity() {
         progressDialog = findViewById(R.id.progressBar)
 
         val toolBarTitle = findViewById<TextView>(R.id.tool_bar_title)
-        toolBarTitle.text = if(isEnglish) "Finish payment" else "Malizia malipo"
+        toolBarTitle.text = if(isEnglish) "Card Payment" else "Malipo ya kadi"
 
         setToolbar()
 
@@ -81,6 +80,7 @@ class CardPaymentRedirection : AppCompatActivity() {
         this.progressDialog.progress = 0
         this.progressDialog.max = 100
         secureWebView.setBackgroundColor(Color.TRANSPARENT)
+        secureWebView.addJavascriptInterface(MyJavaScriptInterface(), "HTMLOUT")
         renderWebPage()
     }
 
@@ -111,6 +111,15 @@ class CardPaymentRedirection : AppCompatActivity() {
         return true
     }
 
+    inner class  MyJavaScriptInterface{
+        @JavascriptInterface
+        public fun processHTML(html:String){
+            if(html.toLowerCase().contains("STATUS SUCCESS".toLowerCase()) || html.toLowerCase().contains("STATUS FAILED".toLowerCase())){
+                Handler().postDelayed({ finish() }, TimeUnit.SECONDS.toMillis(5))
+            }
+        }
+    }
+
 
     private fun showCancelDialog() {
         val builder = AlertDialog.Builder(this)
@@ -133,6 +142,7 @@ class CardPaymentRedirection : AppCompatActivity() {
                 secureWebView.loadUrl("javascript:window.HTMLOUT.processHTML('<head>'+document.getElementsByTagName('html')[0].innerHTML+'</head>');")
             }
 
+
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
                 view.loadUrl(url)
                 return true
@@ -146,6 +156,7 @@ class CardPaymentRedirection : AppCompatActivity() {
         }
         secureWebView.loadUrl(redirectionUrl)
     }
+
 
 
     companion object{

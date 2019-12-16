@@ -1,6 +1,8 @@
 package com.furahitechpay.furahitechpay.mobile
 
+import android.os.Handler
 import androidx.core.content.ContextCompat
+import com.furahitechpay.furahitechpay.FurahitechPay
 import com.furahitechpay.furahitechpay.R
 import com.furahitechpay.furahitechpay.callback.PayCallback
 import com.furahitechpay.furahitechpay.model.BillingInfo
@@ -9,8 +11,10 @@ import com.furahitechpay.furahitechpay.model.TokenResponse
 import com.furahitechpay.furahitechpay.util.BasePresenter
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.coroutines.awaitObjectResponseResult
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.util.concurrent.TimeUnit
 
 class MobilePresenter(view: MobileView) : BasePresenter<MobileView>(view) {
 
@@ -73,7 +77,6 @@ class MobilePresenter(view: MobileView) : BasePresenter<MobileView>(view) {
         if(paymentRequest.orderId.isNotEmpty()){
             paymentData = paymentData.plus("order_id" to paymentRequest.orderId)
         }
-
         GlobalScope.launch {
             val (_, _, result) = Fuel
                 .post("https://apis.furahitech.co.tz/core/v1/payment/auth/mobile", paymentData)
@@ -86,7 +89,7 @@ class MobilePresenter(view: MobileView) : BasePresenter<MobileView>(view) {
                     data.instructions = ""
                     payCallback.onSuccess(data)
                 })},
-                { error -> payCallback.onFailre(error.message!!) }
+                { error -> launch(Dispatchers.Main) {payCallback.onFailre(error.message!!)  }}
             )
         }
     }
@@ -100,4 +103,5 @@ class MobilePresenter(view: MobileView) : BasePresenter<MobileView>(view) {
         internal const val LABEL_BUTTON_PAY = "label_button_pay"
         internal const val LABEL_HOWTO_PAY = "label_how_topay"
     }
+
 }

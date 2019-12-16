@@ -5,6 +5,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
 import android.text.*
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +20,7 @@ import br.com.sapereaude.maskedEditText.MaskedEditText
 import com.furahitechpay.furahitechpay.FurahitechPay
 import com.furahitechpay.furahitechpay.R
 import com.furahitechpay.furahitechpay.callback.PayCallback
+import com.furahitechpay.furahitechpay.card.CardFragment
 import com.furahitechpay.furahitechpay.mobile.MobilePresenter.Companion.LABEL_BUTTON_INFO
 import com.furahitechpay.furahitechpay.mobile.MobilePresenter.Companion.LABEL_BUTTON_PAY
 import com.furahitechpay.furahitechpay.mobile.MobilePresenter.Companion.LABEL_CONTACT_INFO
@@ -29,9 +31,9 @@ import com.furahitechpay.furahitechpay.model.PaymentRequest
 import com.furahitechpay.furahitechpay.model.TokenResponse
 import com.furahitechpay.furahitechpay.util.BaseFragment
 import com.google.android.material.snackbar.Snackbar
+import java.util.concurrent.TimeUnit
 
-class MobileFragment : BaseFragment(), MobileView {
-
+class MobileFragment : BaseFragment(), MobileView, PayCallback {
 
     private val mobileUiLabels = hashMapOf(
         "swa" to hashMapOf(
@@ -100,7 +102,7 @@ class MobileFragment : BaseFragment(), MobileView {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         val view = inflater.inflate(R.layout.fragment_mobile, container, false)
-
+        callback = this
         startPaymentBtn = view.findViewById(R.id.action_pay)
         plansOptions = view.findViewById(R.id.payment_length)
         totalAmountView = view.findViewById(R.id.total_amount)
@@ -127,13 +129,13 @@ class MobileFragment : BaseFragment(), MobileView {
 
         })
 
-        closeInstruction.setOnClickListener { dismiss() }
+        closeInstruction.setOnClickListener { dismissDialog() }
 
         phoneNumberView.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 val view1 = activity!!.currentFocus
                 if (view1 != null) {
-                    hideKeyboard()
+                    FurahitechPay.hideKeyboard(activity!!)
                 }
             }
             false
@@ -167,10 +169,6 @@ class MobileFragment : BaseFragment(), MobileView {
         return view
     }
 
-    private fun hideKeyboard() {
-        val imm = activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(activity!!.currentFocus!!.windowToken, 0)
-    }
 
     private fun setUILabels(view: View){
         view.findViewById<TextView>(R.id.contact_info_label).text = languageMap[LABEL_CONTACT_INFO]
@@ -257,9 +255,13 @@ class MobileFragment : BaseFragment(), MobileView {
             String.format(response.instructions,
                 "Ambayo ni ${response.paymentToken}", "Ambacho ni $selectedPrice"
             ) + "<br/> Token namba yako ya malipo ni <big><b> ${response.paymentToken}</b></big>"
-        );
+        )
         howToPayInfo.text = instruction
         startPaymentBtn.text = languageMap[LABEL_BUTTON_INFO]
+    }
+
+    override fun dismissDialog() {
+        dismiss()
     }
 
     override fun showProgressVisible(show: Boolean) {
@@ -268,6 +270,15 @@ class MobileFragment : BaseFragment(), MobileView {
         paymentDetailsHolder.visibility = GONE
         contactDetailsHolder.visibility = GONE
 
+    }
+
+    override fun onSuccess(tokenResponse: TokenResponse) {
+
+    }
+
+    override fun onFailre(message: String) {
+        showError(if(FurahitechPay.instance.isEnglish) "Payment flow didn't start successfully, try gain later" else "Malipo hayakufanikiwa kuanza, jaribu tena baadae")
+        Handler().postDelayed({ dismissDialog() }, TimeUnit.SECONDS.toMillis(2))
     }
 
 

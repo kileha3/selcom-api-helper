@@ -10,11 +10,12 @@
     android:elevation="@dimen/dimen_16dp"
     app:behavior_hideable="true"
     app:behavior_peekHeight="300dp"
-    android:padding="@dimen/dimen_16dp"
     tools:context=".card.CardFragment"
     app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
     <RelativeLayout
+        android:paddingTop="@dimen/dimen_16dp"
+        android:paddingBottom="@dimen/dimen_16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -26,6 +27,8 @@
             android:layout_height="wrap_content">
 
             <LinearLayout
+                android:layout_marginStart="@dimen/dimen_16dp"
+                android:layout_marginEnd="@dimen/dimen_16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -40,7 +43,7 @@
                     android:layout_weight="2"
                     android:text="Taarifa za Malipo"
                     android:textColor="#444"
-                    android:textSize="@dimen/dimen_text_18sp"
+                    android:textSize="@dimen/text_18sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -55,12 +58,16 @@
             </LinearLayout>
 
             <TextView
+                android:layout_marginStart="@dimen/dimen_16dp"
+                android:layout_marginEnd="@dimen/dimen_16dp"
                 android:id="@+id/payment_for"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Chicken Fried Rice 1x1" />
 
             <TextView
+                android:layout_marginStart="@dimen/dimen_16dp"
+                android:layout_marginEnd="@dimen/dimen_16dp"
                 android:id="@+id/extra_info_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -70,6 +77,8 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:layout_marginStart="@dimen/dimen_16dp"
+                android:layout_marginEnd="@dimen/dimen_16dp"
                 android:layout_marginBottom="@dimen/dimen_8dp"
                 android:layout_marginTop="@dimen/dimen_10dp"
                 android:id="@+id/payment_info"
@@ -78,68 +87,39 @@
                 android:text="Flat No 404, Skyline Apartments, Vizag - 500576" />
 
             <Spinner
+                android:layout_marginStart="@dimen/dimen_8dp"
+                android:layout_marginEnd="@dimen/dimen_16dp"
                 android:id="@+id/payment_length"
                 android:layout_marginTop="@dimen/dimen_16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
             <TextView
+                android:layout_marginStart="@dimen/dimen_16dp"
+                android:layout_marginEnd="@dimen/dimen_16dp"
+                android:paddingTop="@dimen/dimen_8dp"
+                android:textSize="@dimen/text_18sp"
                 android:id="@+id/billing_info_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_16dp"
-                android:text="@string/billing_information"
+                android:text="Taarifa za Mawasiliano"
                 android:textColor="#444"
                 android:textStyle="bold" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width = "match_parent"
-                android:background="@color/colorWhite"
-                android:layout_height = "wrap_content"
-                android:id = "@+id/layout_name"
-                android:layout_marginTop = "@dimen/dimen_10dp"
-                android:layout_marginEnd = "@dimen/dimen_8dp">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:enabled="false"
-                    android:textColor="@color/colorTextPrimary"
-                    android:layout_width = "match_parent"
-                    android:textSize="@dimen/text_15sp"
-                    android:paddingTop="@dimen/dimen_8dp"
-                    android:background="@color/colorWhite"
-                    android:layout_height = "wrap_content"
-                    android:id = "@+id/full_name"
-                    android:hint = "@string/full_name"
-                    android:inputType = "text"/>
-            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width = "match_parent"
-                android:layout_height = "wrap_content"
-                android:id = "@+id/layout_email"
-                android:background="@color/colorWhite"
-                android:layout_marginTop = "@dimen/dimen_8dp"
-                android:layout_marginEnd = "@dimen/dimen_8dp">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:background="@color/colorWhite"
-                    android:enabled="false"
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="@dimen/text_15sp"
-                    android:paddingTop="@dimen/dimen_8dp"
-                    android:layout_width = "match_parent"
-                    android:layout_height = "wrap_content"
-                    android:id = "@+id/email_address"
-                    android:hint = "@string/email_address"
-                    android:inputType = "text"/>
-            </com.google.android.material.textfield.TextInputLayout>
+
 
             <br.com.sapereaude.maskedEditText.MaskedEditText
+                android:layout_marginStart="@dimen/dimen_16dp"
+                android:layout_marginEnd="@dimen/dimen_16dp"
                 android:layout_marginTop="@dimen/dimen_10dp"
                 android:background="@android:color/white"
                 android:id="@+id/phone_number"
                 android:paddingTop="@dimen/dimen_10dp"
                 android:gravity="top"
                 android:focusable="true"
-                android:textSize="@dimen/text_15sp"
+                android:textSize="@dimen/text_18sp"
                 android:textColor="@color/colorTextPrimary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -150,64 +130,12 @@
                 android:hint="@string/phone_number"
                 app:keep_hint="true" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width = "match_parent"
-                android:layout_height = "wrap_content"
-                android:background="@color/colorWhite"
-                android:id = "@+id/layout_street"
-                android:layout_marginTop = "@dimen/dimen_8dp"
-                android:layout_marginEnd = "@dimen/dimen_8dp">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width = "match_parent"
-                    android:paddingTop="@dimen/dimen_8dp"
-                    android:background="@color/colorWhite"
-                    android:textSize="@dimen/text_15sp"
-                    android:layout_height = "wrap_content"
-                    android:id = "@+id/street_address"
-                    android:hint = "@string/street_address"
-                    android:inputType = "text"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-             <com.google.android.material.textfield.TextInputLayout
-                android:layout_width = "match_parent"
-                android:layout_height = "wrap_content"
-                android:background="@color/colorWhite"
-                android:id = "@+id/layout_city"
-                android:layout_marginTop = "@dimen/dimen_8dp"
-                android:layout_marginEnd = "@dimen/dimen_8dp">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:paddingTop="@dimen/dimen_8dp"
-                    android:background="@color/colorWhite"
-                    android:layout_width = "match_parent"
-                    android:textSize="@dimen/text_15sp"
-                    android:layout_height = "wrap_content"
-                    android:id = "@+id/address_city"
-                    android:hint = "@string/address_city"
-                    android:inputType = "text"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width = "match_parent"
-                android:layout_height = "wrap_content"
-                android:background="@color/colorWhite"
-                android:id = "@+id/layout_region"
-                android:layout_marginTop = "@dimen/dimen_8dp"
-                android:layout_marginEnd = "@dimen/dimen_8dp">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:paddingTop="@dimen/dimen_8dp"
-                    android:background="@color/colorWhite"
-                    android:textSize="@dimen/text_15sp"
-                    android:layout_width = "match_parent"
-                    android:layout_height = "wrap_content"
-                    android:id = "@+id/address_region"
-                    android:hint = "@string/address_region"
-                    android:inputType = "text"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
 
             <Button
+                android:layout_marginStart="@dimen/dimen_16dp"
+                android:layout_marginEnd="@dimen/dimen_16dp"
                 android:enabled="false"
-                android:elevation="@dimen/dimen_2dp"
+                android:elevation="4dp"
                 android:id="@+id/action_pay"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -217,7 +145,8 @@
                 android:foreground="?attr/selectableItemBackgroundBorderless"
                 android:text="@string/pay_now"
                 android:textColor="#fff"
-                android:focusable="true" />
+                android:focusable="true"
+                tools:targetApi="lollipop" />
 
         </LinearLayout>
 

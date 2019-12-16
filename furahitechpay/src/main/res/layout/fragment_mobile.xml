@@ -9,7 +9,8 @@
     android:layout_height="wrap_content"
     android:background="@color/colorWhite"
     android:elevation="@dimen/dimen_16dp"
-    android:padding="@dimen/dimen_16dp"
+    android:paddingBottom="@dimen/dimen_16dp"
+    android:paddingTop="@dimen/dimen_16dp"
     app:behavior_hideable="true"
     app:behavior_peekHeight="0dp"
     app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
@@ -26,6 +27,8 @@
             android:layout_height="wrap_content">
 
             <LinearLayout
+                android:layout_marginStart="@dimen/dimen_16dp"
+                android:layout_marginEnd="@dimen/dimen_16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -40,7 +43,7 @@
                     android:layout_weight="2"
                     android:text="Taarifa za Malipo"
                     android:textColor="#444"
-                    android:textSize="@dimen/dimen_text_18sp"
+                    android:textSize="@dimen/text_18sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -56,6 +59,8 @@
 
 
             <TextView
+                android:layout_marginStart="@dimen/dimen_16dp"
+                android:layout_marginEnd="@dimen/dimen_16dp"
                 android:id="@+id/payment_for"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -65,12 +70,16 @@
                 android:id="@+id/extra_info_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_16dp"
                 android:layout_marginTop="@dimen/dimen_16dp"
+                android:layout_marginEnd="@dimen/dimen_16dp"
                 android:text="Maelezo"
                 android:textColor="#444"
                 android:textStyle="bold" />
 
             <TextView
+                android:layout_marginStart="@dimen/dimen_16dp"
+                android:layout_marginEnd="@dimen/dimen_16dp"
                 android:layout_marginTop="@dimen/dimen_10dp"
                 android:id="@+id/payment_info"
                 android:layout_width="wrap_content"
@@ -78,6 +87,8 @@
                 android:text="Flat No 404, Skyline Apartments, Vizag - 500576" />
 
             <Spinner
+                android:layout_marginStart="@dimen/dimen_8dp"
+                android:layout_marginEnd="@dimen/dimen_16dp"
                 android:id="@+id/payment_length"
                 android:layout_marginTop="@dimen/dimen_16dp"
                 android:layout_width="match_parent"
@@ -85,6 +96,8 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_marginStart="@dimen/dimen_16dp"
+            android:layout_marginEnd="@dimen/dimen_16dp"
             android:id="@+id/contact_details"
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -105,7 +118,7 @@
                     android:layout_weight="2"
                     android:text="Taarifa za Mawasiliano"
                     android:textColor="#444"
-                    android:textSize="@dimen/dimen_text_18sp"
+                    android:textSize="@dimen/text_18sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -133,7 +146,7 @@
                     android:paddingTop="@dimen/dimen_10dp"
                     android:gravity="top"
                     android:focusable="true"
-                    android:textSize="@dimen/dimen_text_18sp"
+                    android:textSize="@dimen/text_18sp"
                     android:textColor="@color/colorTextPrimary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -152,6 +165,7 @@
 
 
         <LinearLayout
+            android:padding="@dimen/dimen_16dp"
             android:visibility="gone"
             android:id="@+id/token_details"
             android:orientation="vertical"
@@ -197,7 +211,9 @@
         </LinearLayout>
 
         <Button
-            android:elevation="@dimen/dimen_2dp"
+            android:layout_marginStart="@dimen/dimen_16dp"
+            android:layout_marginEnd="@dimen/dimen_16dp"
+            android:elevation="4dp"
             android:id="@+id/action_pay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -207,7 +223,8 @@
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:text="Endelea na malipo"
             android:textColor="#fff"
-            android:focusable="true" />
+            android:focusable="true"
+            tools:targetApi="lollipop" />
     </LinearLayout>
 
     <ProgressBar
