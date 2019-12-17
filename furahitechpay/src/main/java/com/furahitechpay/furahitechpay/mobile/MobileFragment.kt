@@ -38,7 +38,7 @@ class MobileFragment : BaseFragment(), MobileView, PayCallback {
     private val mobileUiLabels = hashMapOf(
         "swa" to hashMapOf(
             LABEL_PAYMENT_INFO to "Taarifa za Malipo", LABEL_EXTRA_INFO to "Maelezo",
-            LABEL_CONTACT_INFO to "Taarifa za mawasiliano",LABEL_BUTTON_INFO to "Nakili Tokeni",
+            LABEL_CONTACT_INFO to "Taarifa za mawasiliano",LABEL_BUTTON_INFO to "Nakili Kumbukumbu Namba",
             LABEL_BUTTON_PAY to "Tengeneza Tokeni", LABEL_HOWTO_PAY to "Jinsi ya kulipia"),
         "en" to hashMapOf(
             LABEL_PAYMENT_INFO to "Payment Information", LABEL_EXTRA_INFO to "Extra Information",
@@ -254,7 +254,7 @@ class MobileFragment : BaseFragment(), MobileView, PayCallback {
         ) else Html.fromHtml(
             String.format(response.instructions,
                 "Ambayo ni ${response.paymentToken}", "Ambacho ni $selectedPrice"
-            ) + "<br/> Token namba yako ya malipo ni <big><b> ${response.paymentToken}</b></big>"
+            ) + "<br/> Kumbukumbu namba yako ya malipo ni <big><b> ${response.paymentToken}</b></big>"
         )
         howToPayInfo.text = instruction
         startPaymentBtn.text = languageMap[LABEL_BUTTON_INFO]
