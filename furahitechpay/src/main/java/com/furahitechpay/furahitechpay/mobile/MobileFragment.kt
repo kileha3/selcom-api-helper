@@ -39,7 +39,7 @@ class MobileFragment : BaseFragment(), MobileView, PayCallback {
         "swa" to hashMapOf(
             LABEL_PAYMENT_INFO to "Taarifa za Malipo", LABEL_EXTRA_INFO to "Maelezo",
             LABEL_CONTACT_INFO to "Taarifa za mawasiliano",LABEL_BUTTON_INFO to "Nakili Kumbukumbu Namba",
-            LABEL_BUTTON_PAY to "Tengeneza Tokeni", LABEL_HOWTO_PAY to "Jinsi ya kulipia"),
+            LABEL_BUTTON_PAY to "Tengeneza Kumbukumbu namba", LABEL_HOWTO_PAY to "Jinsi ya kulipia"),
         "en" to hashMapOf(
             LABEL_PAYMENT_INFO to "Payment Information", LABEL_EXTRA_INFO to "Extra Information",
             LABEL_CONTACT_INFO to "Contact Information", LABEL_BUTTON_INFO to "Copy Token",
@@ -152,7 +152,7 @@ class MobileFragment : BaseFragment(), MobileView, PayCallback {
                val clipboard = activity!!.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                val clip = ClipData.newPlainText("payment-token", currentToken)
                clipboard.setPrimaryClip(clip)
-               Toast.makeText(activity!!, if(furahitechPay.isEnglish)  "Token copied" else "Umenakili tokeni", Toast.LENGTH_LONG).show()
+               Toast.makeText(activity!!, if(furahitechPay.isEnglish)  "Token copied" else "Umenakili kumbukumbu namba ya malipo", Toast.LENGTH_LONG).show()
            }
         }
 

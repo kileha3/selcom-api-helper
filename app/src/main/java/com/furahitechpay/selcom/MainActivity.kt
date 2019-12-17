@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         )
 
         furahitechPay.activity = this
-        furahitechPay.isEnglish = true
+        furahitechPay.isEnglish = false
         furahitechPay.paymentType = PAYMENT_ALL
         furahitechPay.paymentRequest = request
         furahitechPay.paymentBilling = billing
