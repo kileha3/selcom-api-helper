@@ -35,7 +35,9 @@ class CardPaymentRedirection : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_card_payment_redirection)
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            WebView.setWebContentsDebuggingEnabled(true)
+        }
         redirectionUrl = intent.getStringExtra(REDIRECTION_URL)!!
 
         toolbar = findViewById(R.id.tool_bar)
@@ -73,6 +75,7 @@ class CardPaymentRedirection : AppCompatActivity() {
         }
         secureWebView.clearCache(true)
 
+        secureWebView.webChromeClient = WebChromeClient()
         secureWebView.clearHistory()
         secureWebView.settings.javaScriptEnabled = true
         secureWebView.settings.setRenderPriority(WebSettings.RenderPriority.HIGH)

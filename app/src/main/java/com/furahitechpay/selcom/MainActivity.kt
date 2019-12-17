@@ -23,8 +23,8 @@ class MainActivity : AppCompatActivity() {
             remarks = "subscription", paymentSummary = "Malipo kwa ajili ya ",
             paymentForWhat = "Ondoa matangazo na pata ruhusa kwenye vilivyo fungwa",
             paymentPlans = mutableMapOf(
-                "One Month" to mutableMapOf(1 to 3000),
-                "Two Months" to mutableMapOf(1 to 6000)
+                "One Month" to mutableMapOf(1 to 200),
+                "Two Months" to mutableMapOf(1 to 200)
             ))
 
         val billing = BillingInfo(
@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         furahitechPay.paymentType = PAYMENT_ALL
         furahitechPay.paymentRequest = request
         furahitechPay.paymentBilling = billing
-        furahitechPay.authToken = "Dummy"
+        furahitechPay.authToken = ""
         furahitechPay.payNow(object : PayCallback{
             override fun onFailre(message: String) {
                 println("Failure message =$message")
