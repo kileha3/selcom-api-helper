@@ -119,7 +119,7 @@ class CardFragment : BaseFragment(), CardView, PayCallback{
         setUpPaymentOptions()
 
         setUILabels(view)
-        phoneNumberView.setText("712425886")
+        phoneNumberView.setText(furahitechPay.defaultPhoneForCard)
 
         presenter = CardPresenter(this)
         presenter.onCreate()

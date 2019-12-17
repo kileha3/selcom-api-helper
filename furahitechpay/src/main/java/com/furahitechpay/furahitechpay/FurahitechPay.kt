@@ -7,7 +7,6 @@ import androidx.fragment.app.FragmentActivity
 import com.furahitechpay.furahitechpay.callback.PayCallback
 import com.furahitechpay.furahitechpay.card.CardFragment
 import com.furahitechpay.furahitechpay.mobile.MobileFragment
-import com.furahitechpay.furahitechpay.util.BaseFragment
 import com.furahitechpay.furahitechpay.model.BillingInfo
 import com.furahitechpay.furahitechpay.model.PaymentRequest
 
@@ -18,6 +17,8 @@ class FurahitechPay {
     var isEnglish: Boolean = false
 
     var activity: FragmentActivity? = null
+
+    var defaultPhoneForCard: String? = null
 
     var paymentRequest: PaymentRequest? = null
 
