@@ -43,7 +43,7 @@ class CardPresenter(view: CardView): BasePresenter<CardView>(view) {
             "payment_duration" to paymentRequest.duration,
             "payment_email" to billingInfo.userEmail, "payment_amount" to amount,
             "payment_phone" to billingInfo.userPhone, "payment_product" to paymentRequest.productId,
-            "payment_remarks" to paymentRequest.remarks, "payment_country" to "Tanzania",
+            "payment_remarks" to paymentRequest.remarks, "payment_country" to "TZ",
             "payment_name" to  "${billingInfo.userFirstName} ${billingInfo.userLastName}")
         if(paymentRequest.orderId.isNotEmpty()){
             paymentData = paymentData.plus("order_id" to paymentRequest.orderId)
