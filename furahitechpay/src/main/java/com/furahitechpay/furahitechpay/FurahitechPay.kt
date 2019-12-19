@@ -47,6 +47,26 @@ class FurahitechPay {
     }
 
 
+    fun getFormattedPlans(): Map<String, ArrayList<*>>{
+        val paymentPrices: ArrayList<Int> = arrayListOf()
+        val paymentDuration: ArrayList<Int> = arrayListOf()
+        val paymentLabels: ArrayList<String> = arrayListOf()
+
+        if(paymentRequest != null){
+            paymentRequest!!.paymentPlans.toList().forEach {
+                paymentDuration.add(it.second.toList()[0].first * when {
+                    paymentRequest!!.basePlan.toLowerCase() == "month" -> 30
+                    paymentRequest!!.basePlan.toLowerCase() == "week" -> 7
+                    else -> 1
+                })
+                paymentPrices.add(it.second.toList()[0].second)
+                paymentLabels.add("${it.first}  ${it.second.toList()[0].second}/= ${paymentRequest?.currency}")
+            }
+        }
+        return mutableMapOf(TAG_PRICES to paymentPrices, TAG_DURATION to paymentDuration, TAG_LABELS to paymentLabels)
+    }
+
+
     companion object{
         val instance = FurahitechPay()
 
@@ -55,6 +75,12 @@ class FurahitechPay {
         const val PAYMENT_MOBILE = 2
 
         const val PAYMENT_ALL = 3
+
+        const val TAG_PRICES = "prices"
+
+        const val TAG_DURATION = "duration"
+
+        const val TAG_LABELS = "labels"
 
         @JvmStatic
         fun hideKeyboard(activity: Activity) {

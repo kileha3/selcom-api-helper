@@ -17,6 +17,9 @@ import android.widget.*
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import br.com.sapereaude.maskedEditText.MaskedEditText
 import com.furahitechpay.furahitechpay.FurahitechPay
+import com.furahitechpay.furahitechpay.FurahitechPay.Companion.TAG_DURATION
+import com.furahitechpay.furahitechpay.FurahitechPay.Companion.TAG_LABELS
+import com.furahitechpay.furahitechpay.FurahitechPay.Companion.TAG_PRICES
 import com.furahitechpay.furahitechpay.FurahitechPay.Companion.hideKeyboard
 import com.furahitechpay.furahitechpay.R
 import com.furahitechpay.furahitechpay.callback.PayCallback
@@ -154,11 +157,9 @@ class CardFragment : BaseFragment(), CardView, PayCallback{
         plansOptions.visibility = visibility
 
         if(furahitechPay.paymentRequest!!.paymentPlans.isNotEmpty()){
-            furahitechPay.paymentRequest!!.paymentPlans.toList().forEach {
-                paymentDuration.add(it.second.toList()[0].first * if(paymentRequest.basePlan == "Month") 30 else 7)
-                paymentPrices.add(it.second.toList()[0].second)
-                paymentLabels.add("${it.first}  ${it.second.toList()[0].second}/= ${paymentRequest.currency}")
-            }
+            paymentDuration = furahitechPay.getFormattedPlans()[TAG_DURATION] as ArrayList<Int>
+            paymentPrices = furahitechPay.getFormattedPlans()[TAG_PRICES] as ArrayList<Int>
+            paymentLabels = furahitechPay.getFormattedPlans()[TAG_LABELS] as ArrayList<String>
 
             if(paymentLabels.isNotEmpty()){
                 val dataAdapter = ArrayAdapter<String>(activity!!, android.R.layout.simple_spinner_item, paymentLabels)

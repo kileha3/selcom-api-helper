@@ -192,11 +192,9 @@ class MobileFragment : BaseFragment(), MobileView, PayCallback {
         plansOptions.visibility = visibility
 
         if(furahitechPay.paymentRequest!!.paymentPlans.isNotEmpty()){
-            furahitechPay.paymentRequest!!.paymentPlans.toList().forEach {
-                paymentDuration.add(it.second.toList()[0].first * if(paymentRequest.basePlan.toLowerCase() == "month") 30 else if(paymentRequest.basePlan.toLowerCase() == "week") 7 else 1)
-                paymentPrices.add(it.second.toList()[0].second)
-                paymentLabels.add("${it.first}  ${it.second.toList()[0].second}/= ${paymentRequest.currency}")
-            }
+            paymentDuration = furahitechPay.getFormattedPlans()[FurahitechPay.TAG_DURATION] as ArrayList<Int>
+            paymentPrices = furahitechPay.getFormattedPlans()[FurahitechPay.TAG_PRICES] as ArrayList<Int>
+            paymentLabels = furahitechPay.getFormattedPlans()[FurahitechPay.TAG_LABELS] as ArrayList<String>
 
             if(paymentLabels.isNotEmpty()){
                 val dataAdapter = ArrayAdapter<String>(activity!!, android.R.layout.simple_spinner_item, paymentLabels)
