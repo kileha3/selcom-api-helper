@@ -38,7 +38,7 @@ class CardPresenter(view: CardView): BasePresenter<CardView>(view) {
     fun handleGetRedirection(paymentRequest: PaymentRequest, billingInfo: BillingInfo, token: String, payCallback: PayCallback){
         handleButtonEnabling(false)
         view.showProgressVisible(true)
-        val amount = paymentRequest.amount + (0.03 * paymentRequest.amount)
+        val amount = paymentRequest.amount + (paymentRequest.processingFee * paymentRequest.amount)
         var paymentData = listOf(
             "payment_duration" to paymentRequest.duration,
             "payment_email" to billingInfo.userEmail, "payment_amount" to amount,
