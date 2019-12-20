@@ -46,7 +46,7 @@ class MobilePresenter(view: MobileView) : BasePresenter<MobileView>(view) {
                 operatorIndex = 5
             }else if(phone.startsWith("62")){
                 operatorIndex = 2
-            }else if(phone.startsWith("68") || phone.startsWith("78")){
+            }else if(phone.startsWith("68") || phone.startsWith("78") || phone.startsWith("69")){
                 operatorIndex = 3
             }
             view.setMobileOperatorIcon(operatorsList[operatorIndex])
