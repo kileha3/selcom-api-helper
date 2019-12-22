@@ -106,6 +106,8 @@ class MobileFragment : BaseFragment(), MobileView, PayCallback {
 
     private var selectedPrice = paymentRequest.amount
 
+    private val language = if(furahitechPay.isCardEnglish)  "en" else "swa"
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
@@ -182,7 +184,7 @@ class MobileFragment : BaseFragment(), MobileView, PayCallback {
         view.findViewById<TextView>(R.id.contact_info_label).text = languageMap[LABEL_CONTACT_INFO]
         view.findViewById<TextView>(R.id.pay_info_label).text = languageMap[LABEL_PAYMENT_INFO]
         view.findViewById<TextView>(R.id.extra_info_label).text = languageMap[LABEL_EXTRA_INFO]
-        view.findViewById<TextView>(R.id.payment_for).text = furahitechPay.paymentRequest!!.paymentForWhat
+        view.findViewById<TextView>(R.id.payment_for).text = furahitechPay.paymentRequest!!.paymentForWhat[language]
         view.findViewById<TextView>(R.id.instruction_label).text = languageMap[LABEL_HOWTO_PAY]
         startPaymentBtn.text = languageMap[LABEL_BUTTON_PAY]
     }
@@ -191,18 +193,18 @@ class MobileFragment : BaseFragment(), MobileView, PayCallback {
     private fun updateAmount(){
         paymentRequest.amount = selectedPrice
         totalAmountView.text = formatPrice(selectedPrice,paymentRequest.currency)
-        paymentInfoView.text = paymentRequest.paymentSummary + " " + paymentLabels[selectedPlan]
+        paymentInfoView.text = paymentRequest.paymentSummary[language] + " " + paymentLabels[selectedPlan]
         paymentRequest.duration = paymentDuration[selectedPlan]
     }
 
     private fun setUpPaymentOptions(){
         val visibility = if(furahitechPay.paymentRequest!!.paymentPlans.toList().isNotEmpty()) VISIBLE else GONE
         plansOptions.visibility = visibility
-
+        val language = if(furahitechPay.isMobileEnglish)  "en" else "swa"
         if(furahitechPay.paymentRequest!!.paymentPlans.isNotEmpty()){
-            paymentDuration = furahitechPay.getFormattedPlans()[FurahitechPay.TAG_DURATION] as ArrayList<Int>
-            paymentPrices = furahitechPay.getFormattedPlans()[FurahitechPay.TAG_PRICES] as ArrayList<Int>
-            paymentLabels = furahitechPay.getFormattedPlans()[FurahitechPay.TAG_LABELS] as ArrayList<String>
+            paymentDuration = furahitechPay.getFormattedPlans(language)[FurahitechPay.TAG_DURATION] as ArrayList<Int>
+            paymentPrices = furahitechPay.getFormattedPlans(language)[FurahitechPay.TAG_PRICES] as ArrayList<Int>
+            paymentLabels = furahitechPay.getFormattedPlans(language)[FurahitechPay.TAG_LABELS] as ArrayList<String>
 
             if(paymentLabels.isNotEmpty()){
                 val dataAdapter = ArrayAdapter<String>(activity!!, android.R.layout.simple_spinner_item, paymentLabels)
@@ -222,7 +224,7 @@ class MobileFragment : BaseFragment(), MobileView, PayCallback {
             }
 
         }else{
-            paymentInfoView.text = paymentRequest.paymentSummary
+            paymentInfoView.text = paymentRequest.paymentSummary[language]
             totalAmountView.text = formatPrice(selectedPrice,paymentRequest.currency)
         }
     }

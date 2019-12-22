@@ -16,7 +16,7 @@ class FurahitechPay {
 
     var isMobileEnglish: Boolean = false
 
-    var isCardEnglish: Boolean = false
+    var isCardEnglish: Boolean = true
 
     var activity: FragmentActivity? = null
 
@@ -49,13 +49,13 @@ class FurahitechPay {
     }
 
 
-    fun getFormattedPlans(): Map<String, ArrayList<*>>{
+    fun getFormattedPlans(language: String): Map<String, ArrayList<*>>{
         val paymentPrices: ArrayList<Int> = arrayListOf()
         val paymentDuration: ArrayList<Int> = arrayListOf()
         val paymentLabels: ArrayList<String> = arrayListOf()
 
         if(paymentRequest != null){
-            paymentRequest!!.paymentPlans.toList().forEach {
+            paymentRequest!!.paymentPlans[language]!!.toList().forEach {
                 paymentDuration.add(it.second.toList()[0].first * when {
                     paymentRequest!!.basePlan.toLowerCase() == "month" -> 30
                     paymentRequest!!.basePlan.toLowerCase() == "week" -> 7
@@ -83,6 +83,10 @@ class FurahitechPay {
         const val TAG_DURATION = "duration"
 
         const val TAG_LABELS = "labels"
+
+        const val LANGUAGE_SWAHILI = "swa"
+
+        const val LANGUAGE_ENGLISH = "en"
 
         @JvmStatic
         fun hideKeyboard(activity: Activity) {

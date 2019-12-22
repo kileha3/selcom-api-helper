@@ -126,6 +126,8 @@ class CardFragment : BaseFragment(), CardView, PayCallback{
 
     private lateinit var postalCode: TextInputEditText
 
+    private val language = if(furahitechPay.isCardEnglish)  "en" else "swa"
+
     @SuppressLint("SetTextI18n")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -192,7 +194,7 @@ class CardFragment : BaseFragment(), CardView, PayCallback{
         view.findViewById<TextView>(R.id.billing_info_label).text = languageMap[MobilePresenter.LABEL_CONTACT_INFO]
         view.findViewById<TextView>(R.id.pay_info_label).text = languageMap[MobilePresenter.LABEL_PAYMENT_INFO]
         view.findViewById<TextView>(R.id.extra_info_label).text = languageMap[MobilePresenter.LABEL_EXTRA_INFO]
-        view.findViewById<TextView>(R.id.payment_for).text = furahitechPay.paymentRequest!!.paymentForWhat
+        view.findViewById<TextView>(R.id.payment_for).text = furahitechPay.paymentRequest!!.paymentForWhat[language]
         firstName.hint = languageMap[MobilePresenter.LABEL_FIRST_NAME]
         lastName.hint = languageMap[MobilePresenter.LABEL_LAST_NAME]
         address.hint = languageMap[MobilePresenter.LABEL_ADRESS]
@@ -210,9 +212,9 @@ class CardFragment : BaseFragment(), CardView, PayCallback{
         plansOptions.visibility = visibility
 
         if(furahitechPay.paymentRequest!!.paymentPlans.isNotEmpty()){
-            paymentDuration = furahitechPay.getFormattedPlans()[TAG_DURATION] as ArrayList<Int>
-            paymentPrices = furahitechPay.getFormattedPlans()[TAG_PRICES] as ArrayList<Int>
-            paymentLabels = furahitechPay.getFormattedPlans()[TAG_LABELS] as ArrayList<String>
+            paymentDuration = furahitechPay.getFormattedPlans(language)[TAG_DURATION] as ArrayList<Int>
+            paymentPrices = furahitechPay.getFormattedPlans(language)[TAG_PRICES] as ArrayList<Int>
+            paymentLabels = furahitechPay.getFormattedPlans(language)[TAG_LABELS] as ArrayList<String>
 
             if(paymentLabels.isNotEmpty()){
                 val dataAdapter = ArrayAdapter<String>(activity!!, android.R.layout.simple_spinner_item, paymentLabels)
@@ -232,7 +234,7 @@ class CardFragment : BaseFragment(), CardView, PayCallback{
             }
 
         }else{
-            paymentInfoView.text = paymentRequest.paymentSummary
+            paymentInfoView.text = paymentRequest.paymentSummary[language]
             totalAmountView.text = formatPrice(selectedPrice,paymentRequest.currency)
         }
 
@@ -252,7 +254,7 @@ class CardFragment : BaseFragment(), CardView, PayCallback{
     private fun updateAmount(){
         paymentRequest.amount = selectedPrice
         totalAmountView.text = formatPrice(selectedPrice,paymentRequest.currency)
-        paymentInfoView.text = paymentRequest.paymentSummary + " " + paymentLabels[selectedPlan]
+        paymentInfoView.text = paymentRequest.paymentSummary[language] + " " + paymentLabels[selectedPlan]
         paymentRequest.duration = paymentDuration[selectedPlan]
         presenter.updateBtnState()
     }

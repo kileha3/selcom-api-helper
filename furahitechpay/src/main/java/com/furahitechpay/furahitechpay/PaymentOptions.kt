@@ -23,8 +23,8 @@ class PaymentOptions: BaseFragment() {
         val cardHolder = view.findViewById<RelativeLayout>(R.id.card_option_handle)
         val mobileHolder = view.findViewById<RelativeLayout>(R.id.mobile_option_handle)
 
-        val labelsCard =  if(FurahitechPay.instance.isEnglish) "Card Payments" else "Lipa Kwa Kadi"
-        val labelsMobile =  if(FurahitechPay.instance.isEnglish) "Mobile Payments" else "Lipa Kwa Simu"
+        val labelsCard =  if(FurahitechPay.instance.isCardEnglish) "Card Payments" else "Lipa Kwa Kadi"
+        val labelsMobile =  if(FurahitechPay.instance.isMobileEnglish) "Mobile Payments" else "Lipa Kwa Simu"
 
         cardPaymentLabel.text = labelsCard
         mobilePaymentLabel.text = labelsMobile
