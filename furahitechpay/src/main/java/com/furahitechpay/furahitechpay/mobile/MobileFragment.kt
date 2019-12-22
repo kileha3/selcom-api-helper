@@ -106,7 +106,7 @@ class MobileFragment : BaseFragment(), MobileView, PayCallback {
 
     private var selectedPrice = paymentRequest.amount
 
-    private val language = if(furahitechPay.isCardEnglish)  "en" else "swa"
+    private val language = if(furahitechPay.isMobileEnglish)  FurahitechPay.LANGUAGE_ENGLISH else FurahitechPay.LANGUAGE_SWAHILI
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

@@ -126,7 +126,7 @@ class CardFragment : BaseFragment(), CardView, PayCallback{
 
     private lateinit var postalCode: TextInputEditText
 
-    private val language = if(furahitechPay.isCardEnglish)  "en" else "swa"
+    private val language = if(furahitechPay.isCardEnglish)  FurahitechPay.LANGUAGE_ENGLISH else FurahitechPay.LANGUAGE_SWAHILI
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
