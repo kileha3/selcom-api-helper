@@ -1,8 +1,6 @@
 package com.furahitechpay.furahitechpay.mobile
 
-import android.os.Handler
 import androidx.core.content.ContextCompat
-import com.furahitechpay.furahitechpay.FurahitechPay
 import com.furahitechpay.furahitechpay.R
 import com.furahitechpay.furahitechpay.callback.PayCallback
 import com.furahitechpay.furahitechpay.model.BillingInfo
@@ -14,7 +12,6 @@ import com.github.kittinunf.fuel.coroutines.awaitObjectResponseResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import java.util.concurrent.TimeUnit
 
 class MobilePresenter(view: MobileView) : BasePresenter<MobileView>(view) {
 
@@ -102,6 +99,14 @@ class MobilePresenter(view: MobileView) : BasePresenter<MobileView>(view) {
         internal const val LABEL_BUTTON_INFO = "label_button_info"
         internal const val LABEL_BUTTON_PAY = "label_button_pay"
         internal const val LABEL_HOWTO_PAY = "label_how_topay"
+        internal const val LABEL_FIRST_NAME = "fist_name"
+        internal const val LABEL_LAST_NAME = "last_name"
+        internal const val LABEL_ADRESS = "address"
+        internal const val LABEL_COUNTRY_NAME = "country_name"
+        internal const val LABEL_CITY_NAME = "city_name"
+        internal const val LABEL_STATE_NAME = "state_name"
+        internal const val LABEL_STREET_NAME = "street_name"
+        internal const val LABEL_POSTAL_CODE = "postal_code"
     }
 
 }

@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
             userLastName = "Kileha"
         )
 
+        furahitechPay.defaultPhoneForCard = "255712000000"
         furahitechPay.activity = this
         furahitechPay.isEnglish = false
         furahitechPay.paymentType = PAYMENT_ALL

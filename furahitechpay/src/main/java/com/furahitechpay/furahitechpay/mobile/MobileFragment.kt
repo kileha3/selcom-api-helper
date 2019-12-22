@@ -21,12 +21,19 @@ import com.furahitechpay.furahitechpay.FurahitechPay
 import com.furahitechpay.furahitechpay.R
 import com.furahitechpay.furahitechpay.callback.PayCallback
 import com.furahitechpay.furahitechpay.card.CardFragment
+import com.furahitechpay.furahitechpay.mobile.MobilePresenter.Companion.LABEL_ADRESS
 import com.furahitechpay.furahitechpay.mobile.MobilePresenter.Companion.LABEL_BUTTON_INFO
 import com.furahitechpay.furahitechpay.mobile.MobilePresenter.Companion.LABEL_BUTTON_PAY
+import com.furahitechpay.furahitechpay.mobile.MobilePresenter.Companion.LABEL_CITY_NAME
 import com.furahitechpay.furahitechpay.mobile.MobilePresenter.Companion.LABEL_CONTACT_INFO
+import com.furahitechpay.furahitechpay.mobile.MobilePresenter.Companion.LABEL_COUNTRY_NAME
 import com.furahitechpay.furahitechpay.mobile.MobilePresenter.Companion.LABEL_EXTRA_INFO
+import com.furahitechpay.furahitechpay.mobile.MobilePresenter.Companion.LABEL_FIRST_NAME
 import com.furahitechpay.furahitechpay.mobile.MobilePresenter.Companion.LABEL_HOWTO_PAY
+import com.furahitechpay.furahitechpay.mobile.MobilePresenter.Companion.LABEL_LAST_NAME
 import com.furahitechpay.furahitechpay.mobile.MobilePresenter.Companion.LABEL_PAYMENT_INFO
+import com.furahitechpay.furahitechpay.mobile.MobilePresenter.Companion.LABEL_STATE_NAME
+import com.furahitechpay.furahitechpay.mobile.MobilePresenter.Companion.LABEL_STREET_NAME
 import com.furahitechpay.furahitechpay.model.PaymentRequest
 import com.furahitechpay.furahitechpay.model.TokenResponse
 import com.furahitechpay.furahitechpay.util.BaseFragment
@@ -39,7 +46,8 @@ class MobileFragment : BaseFragment(), MobileView, PayCallback {
         "swa" to hashMapOf(
             LABEL_PAYMENT_INFO to "Taarifa za Malipo", LABEL_EXTRA_INFO to "Maelezo",
             LABEL_CONTACT_INFO to "Taarifa za mawasiliano",LABEL_BUTTON_INFO to "Nakili Kumbukumbu Namba",
-            LABEL_BUTTON_PAY to "Tengeneza Kumbukumbu namba", LABEL_HOWTO_PAY to "Jinsi ya kulipia"),
+            LABEL_BUTTON_PAY to "Tengeneza Kumbukumbu namba", LABEL_HOWTO_PAY to "Jinsi ya kulipia"
+        ),
         "en" to hashMapOf(
             LABEL_PAYMENT_INFO to "Payment Information", LABEL_EXTRA_INFO to "Extra Information",
             LABEL_CONTACT_INFO to "Contact Information", LABEL_BUTTON_INFO to "Copy Token",

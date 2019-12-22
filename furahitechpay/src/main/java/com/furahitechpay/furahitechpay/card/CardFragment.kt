@@ -1,6 +1,5 @@
 package com.furahitechpay.furahitechpay.card
 
-
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
@@ -30,7 +29,9 @@ import com.furahitechpay.furahitechpay.model.PaymentRequest
 import com.furahitechpay.furahitechpay.model.TokenResponse
 import com.furahitechpay.furahitechpay.util.BaseFragment
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textfield.TextInputEditText
 import java.util.concurrent.TimeUnit
+
 
 class CardFragment : BaseFragment(), CardView, PayCallback{
 
@@ -39,12 +40,28 @@ class CardFragment : BaseFragment(), CardView, PayCallback{
             MobilePresenter.LABEL_PAYMENT_INFO to "Taarifa za Malipo",
             MobilePresenter.LABEL_EXTRA_INFO to "Maelezo",
             MobilePresenter.LABEL_CONTACT_INFO to "Taarifa za mawasiliano",
-            MobilePresenter.LABEL_BUTTON_PAY to "Anza Kulipa"),
+            MobilePresenter.LABEL_BUTTON_PAY to "Anza Kulipa",
+            MobilePresenter.LABEL_FIRST_NAME to "Jina la kwanza",
+            MobilePresenter.LABEL_LAST_NAME to "Jina la mwisho",
+            MobilePresenter.LABEL_ADRESS to "Anuani yako",
+            MobilePresenter.LABEL_COUNTRY_NAME to "Nchi",
+            MobilePresenter.LABEL_CITY_NAME to "Mji utokako",
+            MobilePresenter.LABEL_STATE_NAME to "Mkoa au Wilaya",
+            MobilePresenter.LABEL_STREET_NAME to "Mtaa wako",
+            MobilePresenter.LABEL_POSTAL_CODE to "Sanduku la posta"),
         "en" to hashMapOf(
             MobilePresenter.LABEL_PAYMENT_INFO to "Payment Information",
             MobilePresenter.LABEL_EXTRA_INFO to "Extra Information",
             MobilePresenter.LABEL_CONTACT_INFO to "Contact Information",
-            MobilePresenter.LABEL_BUTTON_PAY to "Start Payment")
+            MobilePresenter.LABEL_BUTTON_PAY to "Start Payment",
+            MobilePresenter.LABEL_FIRST_NAME to "First Name",
+            MobilePresenter.LABEL_LAST_NAME to "Last name",
+            MobilePresenter.LABEL_ADRESS to "Address",
+            MobilePresenter.LABEL_COUNTRY_NAME to "Country",
+            MobilePresenter.LABEL_CITY_NAME to "City",
+            MobilePresenter.LABEL_STATE_NAME to "State or Region",
+            MobilePresenter.LABEL_STREET_NAME to "Street",
+            MobilePresenter.LABEL_POSTAL_CODE to "Postal Code or P.O.Box")
     )
 
     private val textWatcher = object: TextWatcher{
@@ -93,21 +110,44 @@ class CardFragment : BaseFragment(), CardView, PayCallback{
 
     private lateinit var mainHolder: LinearLayout
 
+    private lateinit var rootView: View
+
+    private lateinit var firstName: TextInputEditText
+
+    private lateinit var lastName: TextInputEditText
+
+    private lateinit var address: TextInputEditText
+
+    private lateinit var cityName: TextInputEditText
+
+    private lateinit var stateName: TextInputEditText
+
+    private lateinit var streetName: TextInputEditText
+
+    private lateinit var postalCode: TextInputEditText
+
     @SuppressLint("SetTextI18n")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_card, container, false)
+        rootView = inflater.inflate(R.layout.fragment_card, container, false)
 
         payCallback = this
 
-        startPaymentBtn = view.findViewById(R.id.action_pay)
-        plansOptions = view.findViewById(R.id.payment_length)
-        totalAmountView = view.findViewById(R.id.total_amount)
-        paymentInfoView = view.findViewById(R.id.payment_info)
-        phoneNumberView = view.findViewById(R.id.phone_number)
-        progressBar = view.findViewById(R.id.progress_bar)
-        mainHolder = view.findViewById(R.id.main_holder)
-        coordinatorLayout = view.findViewById(R.id.bottom_sheet)
+        startPaymentBtn = rootView.findViewById(R.id.action_pay)
+        plansOptions = rootView.findViewById(R.id.payment_length)
+        totalAmountView = rootView.findViewById(R.id.total_amount)
+        paymentInfoView = rootView.findViewById(R.id.payment_info)
+        phoneNumberView = rootView.findViewById(R.id.phone_number)
+        progressBar = rootView.findViewById(R.id.progress_bar)
+        mainHolder = rootView.findViewById(R.id.main_holder)
+        coordinatorLayout = rootView.findViewById(R.id.bottom_sheet)
+        firstName = rootView.findViewById(R.id.first_name)
+        lastName = rootView.findViewById(R.id.last_name)
+        address = rootView.findViewById(R.id.first_address)
+        cityName = rootView.findViewById(R.id.city_name)
+        stateName = rootView.findViewById(R.id.state_name)
+        streetName = rootView.findViewById(R.id.street_name)
+        postalCode = rootView.findViewById(R.id.postal_code)
 
         phoneNumberView.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {}
@@ -121,22 +161,27 @@ class CardFragment : BaseFragment(), CardView, PayCallback{
 
         setUpPaymentOptions()
 
-        setUILabels(view)
+        setUILabels(rootView)
         phoneNumberView.setText(furahitechPay.defaultPhoneForCard)
 
         presenter = CardPresenter(this)
         presenter.onCreate()
 
         startPaymentBtn.setOnClickListener {
-            val billing = furahitechPay.paymentBilling!!
-            billing.userPhone = "255${phoneNumberView.rawText}"
-            presenter.handleGetRedirection(paymentRequest, billing, furahitechPay.authToken!!, payCallback)
+            presenter.handleGetRedirection(paymentRequest, furahitechPay.paymentBilling!!, furahitechPay.authToken!!, payCallback)
         }
 
         phoneNumberView.addTextChangedListener(textWatcher)
+        firstName.addTextChangedListener(textWatcher)
+        lastName.addTextChangedListener(textWatcher)
+        address.addTextChangedListener(textWatcher)
+        cityName.addTextChangedListener(textWatcher)
+        streetName.addTextChangedListener(textWatcher)
+        stateName.addTextChangedListener(textWatcher)
+        postalCode.addTextChangedListener(textWatcher)
 
 
-        return view
+        return rootView
     }
 
     private fun isNoEmpty(view: EditText): Boolean{
@@ -148,6 +193,14 @@ class CardFragment : BaseFragment(), CardView, PayCallback{
         view.findViewById<TextView>(R.id.pay_info_label).text = languageMap[MobilePresenter.LABEL_PAYMENT_INFO]
         view.findViewById<TextView>(R.id.extra_info_label).text = languageMap[MobilePresenter.LABEL_EXTRA_INFO]
         view.findViewById<TextView>(R.id.payment_for).text = furahitechPay.paymentRequest!!.paymentForWhat
+        firstName.hint = languageMap[MobilePresenter.LABEL_FIRST_NAME]
+        lastName.hint = languageMap[MobilePresenter.LABEL_LAST_NAME]
+        address.hint = languageMap[MobilePresenter.LABEL_ADRESS]
+        cityName.hint = languageMap[MobilePresenter.LABEL_CITY_NAME]
+        stateName.hint = languageMap[MobilePresenter.LABEL_STATE_NAME]
+        streetName.hint = languageMap[MobilePresenter.LABEL_STREET_NAME]
+        postalCode.hint = languageMap[MobilePresenter.LABEL_POSTAL_CODE]
+        view.findViewById<TextView>(R.id.country_label).text = languageMap[MobilePresenter.LABEL_COUNTRY_NAME]
         startPaymentBtn.text = languageMap[MobilePresenter.LABEL_BUTTON_PAY]
     }
 
@@ -206,7 +259,36 @@ class CardFragment : BaseFragment(), CardView, PayCallback{
 
 
     override fun checkEmptyFields() {
-        presenter.handleButtonEnabling(isNoEmpty(phoneNumberView) && phoneNumberView.rawText.length > 4)
+        val paymentBilling =  furahitechPay.paymentBilling!!
+        paymentBilling.userFirstName = firstName.text.toString()
+        paymentBilling.userLastName = lastName.text.toString()
+        paymentBilling.userCity = cityName.text.toString()
+        paymentBilling.userState = stateName.text.toString()
+        paymentBilling.userStreet = streetName.text.toString()
+        paymentBilling.userAddress = address.text.toString()
+        paymentBilling.postalCode = postalCode.text.toString()
+        paymentBilling.userPhone = "255${phoneNumberView.rawText}"
+        presenter.handleButtonEnabling(isNoEmpty(postalCode) && isNoEmpty(phoneNumberView) && isNoEmpty(firstName) && isNoEmpty(streetName)
+                && isNoEmpty(lastName) && isNoEmpty(address) && isNoEmpty(cityName) && isNoEmpty(stateName)
+                && phoneNumberView.rawText.length > 4)
+
+    }
+
+    override fun setCountries(countries: HashMap<String, String>) {
+        val mCountries = rootView.findViewById<Spinner>(R.id.country_name)
+        val countryArray = countries.keys.toTypedArray().sortedArray()
+        val dataAdapter = ArrayAdapter<String>(activity!!, android.R.layout.simple_spinner_item, countryArray)
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        mCountries.adapter = dataAdapter
+
+        mCountries.onItemSelectedListener = (object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(p0: AdapterView<*>?) { }
+
+            override fun onItemSelected(p0: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                presenter.handleSelectedCountry(countryArray[position])
+            }
+        })
+        mCountries.setSelection(0,true)
 
     }
 

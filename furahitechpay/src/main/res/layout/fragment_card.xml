@@ -13,153 +13,308 @@
     tools:context=".card.CardFragment"
     app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
-    <RelativeLayout
-        android:paddingTop="@dimen/dimen_16dp"
-        android:paddingBottom="@dimen/dimen_16dp"
+    <androidx.core.widget.NestedScrollView
+        android:scrollbars="none"
         android:layout_width="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:id="@+id/main_holder"
-            android:background="@color/colorWhite"
-            android:orientation="vertical"
+        <RelativeLayout
+            android:paddingTop="@dimen/dimen_16dp"
+            android:paddingBottom="@dimen/dimen_16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <LinearLayout
-                android:layout_marginStart="@dimen/dimen_16dp"
-                android:layout_marginEnd="@dimen/dimen_16dp"
+                android:id="@+id/main_holder"
+                android:background="@color/colorWhite"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="center_vertical"
-                android:weightSum="3">
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_marginStart="@dimen/dimen_16dp"
+                    android:layout_marginEnd="@dimen/dimen_16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center_vertical"
+                    android:weightSum="3">
+
+                    <TextView
+                        android:id="@+id/pay_info_label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dimen_16dp"
+                        android:layout_weight="2"
+                        android:text="Taarifa za Malipo"
+                        android:textColor="#444"
+                        android:textSize="@dimen/text_18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/total_amount"
+                        android:layout_width="0dp"
+                        android:gravity="right"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/text_15sp"
+                        android:text="435.00"/>
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/pay_info_label"
-                    android:layout_width="0dp"
+                    android:layout_marginStart="@dimen/dimen_16dp"
+                    android:layout_marginEnd="@dimen/dimen_16dp"
+                    android:id="@+id/payment_for"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dimen_16dp"
-                    android:layout_weight="2"
-                    android:text="Taarifa za Malipo"
+                    android:text="Chicken Fried Rice 1x1" />
+
+                <TextView
+                    android:layout_marginStart="@dimen/dimen_16dp"
+                    android:layout_marginEnd="@dimen/dimen_16dp"
+                    android:id="@+id/extra_info_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_16dp"
+                    android:text="@string/summary"
                     android:textColor="#444"
-                    android:textSize="@dimen/text_18sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/total_amount"
-                    android:layout_width="0dp"
-                    android:gravity="right"
+                    android:layout_marginStart="@dimen/dimen_16dp"
+                    android:layout_marginEnd="@dimen/dimen_16dp"
+                    android:layout_marginBottom="@dimen/dimen_8dp"
+                    android:layout_marginTop="@dimen/dimen_10dp"
+                    android:id="@+id/payment_info"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/text_15sp"
-                    android:text="435.00"/>
+                    android:text="Flat No 404, Skyline Apartments, Vizag - 500576" />
+
+                <Spinner
+                    android:layout_marginStart="@dimen/dimen_8dp"
+                    android:layout_marginEnd="@dimen/dimen_16dp"
+                    android:id="@+id/payment_length"
+                    android:layout_marginTop="@dimen/dimen_16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:visibility="gone"
+                    android:layout_marginStart="@dimen/dimen_16dp"
+                    android:layout_marginEnd="@dimen/dimen_16dp"
+                    android:paddingTop="@dimen/dimen_8dp"
+                    android:textSize="@dimen/text_18sp"
+                    android:id="@+id/billing_info_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_16dp"
+                    android:text="Taarifa za Mawasiliano"
+                    android:textColor="#444"
+                    android:textStyle="bold" />
+
+
+
+
+                <br.com.sapereaude.maskedEditText.MaskedEditText
+                    android:visibility="gone"
+                    android:layout_marginStart="@dimen/dimen_16dp"
+                    android:layout_marginEnd="@dimen/dimen_16dp"
+                    android:layout_marginTop="@dimen/dimen_10dp"
+                    android:background="@android:color/white"
+                    android:id="@+id/phone_number"
+                    android:paddingTop="@dimen/dimen_10dp"
+                    android:gravity="top"
+                    android:focusable="true"
+                    android:textSize="@dimen/text_18sp"
+                    android:textColor="@color/colorTextPrimary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone"
+                    android:maxLines="1"
+                    mask:allowed_chars="1234567890"
+                    mask:mask="+255(###) ###-###"
+                    android:hint="@string/phone_number"
+                    app:keep_hint="true" />
+
+                <TextView
+                    android:layout_marginStart="@dimen/dimen_16dp"
+                    android:layout_marginEnd="@dimen/dimen_16dp"
+                    android:id="@+id/extra_info_billing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_16dp"
+                    android:text="@string/billing_information"
+                    android:textColor="#444"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_marginTop="@dimen/dimen_16dp"
+                    android:layout_marginStart="@dimen/dimen_16dp"
+                    android:layout_marginEnd="@dimen/dimen_16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:id="@+id/first_name"
+                        android:inputType="text"
+                        android:textSize="@dimen/text_15sp"
+                        android:layout_height="wrap_content"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_marginTop="@dimen/dimen_16dp"
+                    android:layout_marginStart="@dimen/dimen_16dp"
+                    android:layout_marginEnd="@dimen/dimen_16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:id="@+id/last_name"
+                        android:inputType="text"
+                        android:textSize="@dimen/text_15sp"
+                        android:layout_height="wrap_content"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_marginTop="@dimen/dimen_16dp"
+                    android:layout_marginStart="@dimen/dimen_16dp"
+                    android:layout_marginEnd="@dimen/dimen_16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:id="@+id/first_address"
+                        android:inputType="text"
+                        android:textSize="@dimen/text_15sp"
+                        android:layout_height="wrap_content"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_marginTop="@dimen/dimen_16dp"
+                    android:layout_marginStart="@dimen/dimen_16dp"
+                    android:layout_marginEnd="@dimen/dimen_16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:id="@+id/postal_code"
+                        android:inputType="number"
+                        android:textSize="@dimen/text_15sp"
+                        android:layout_height="wrap_content"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:paddingStart="6dp"
+                    android:layout_marginStart="@dimen/dimen_16dp"
+                    android:layout_marginEnd="@dimen/dimen_16dp"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/country_label"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_marginTop="@dimen/dimen_16dp"
+                    android:text="Country name"
+                    android:textColor="@color/colorTextSecondary" />
+
+
+                <Spinner
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="@dimen/dimen_16dp"
+                    android:id="@+id/country_name"
+                    android:layout_marginTop="@dimen/dimen_8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_marginTop="@dimen/dimen_16dp"
+                    android:layout_marginStart="@dimen/dimen_16dp"
+                    android:layout_marginEnd="@dimen/dimen_16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:id="@+id/city_name"
+                        android:inputType="text"
+                        android:textSize="@dimen/text_15sp"
+                        android:layout_height="wrap_content"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_marginTop="@dimen/dimen_16dp"
+                    android:layout_marginStart="@dimen/dimen_16dp"
+                    android:layout_marginEnd="@dimen/dimen_16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:id="@+id/state_name"
+                        android:inputType="text"
+                        android:textSize="@dimen/text_15sp"
+                        android:layout_height="wrap_content"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_marginTop="@dimen/dimen_16dp"
+                    android:layout_marginStart="@dimen/dimen_16dp"
+                    android:layout_marginEnd="@dimen/dimen_16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:textSize="@dimen/text_15sp"
+                        android:layout_width="match_parent"
+                        android:inputType="text"
+                        android:id="@+id/street_name"
+                        android:layout_height="wrap_content"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+                <Button
+                    android:layout_marginStart="@dimen/dimen_16dp"
+                    android:layout_marginEnd="@dimen/dimen_16dp"
+                    android:enabled="false"
+                    android:elevation="4dp"
+                    android:id="@+id/action_pay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:background="@color/colorAccent"
+                    android:clickable="true"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:text="@string/pay_now"
+                    android:textColor="#fff"
+                    android:focusable="true"
+                    tools:targetApi="lollipop" />
+
             </LinearLayout>
 
-            <TextView
-                android:layout_marginStart="@dimen/dimen_16dp"
-                android:layout_marginEnd="@dimen/dimen_16dp"
-                android:id="@+id/payment_for"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Chicken Fried Rice 1x1" />
-
-            <TextView
-                android:layout_marginStart="@dimen/dimen_16dp"
-                android:layout_marginEnd="@dimen/dimen_16dp"
-                android:id="@+id/extra_info_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_16dp"
-                android:text="@string/summary"
-                android:textColor="#444"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_marginStart="@dimen/dimen_16dp"
-                android:layout_marginEnd="@dimen/dimen_16dp"
-                android:layout_marginBottom="@dimen/dimen_8dp"
-                android:layout_marginTop="@dimen/dimen_10dp"
-                android:id="@+id/payment_info"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Flat No 404, Skyline Apartments, Vizag - 500576" />
-
-            <Spinner
-                android:layout_marginStart="@dimen/dimen_8dp"
-                android:layout_marginEnd="@dimen/dimen_16dp"
-                android:id="@+id/payment_length"
-                android:layout_marginTop="@dimen/dimen_16dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-            <TextView
+            <ProgressBar
+                android:layout_centerHorizontal="true"
                 android:visibility="gone"
-                android:layout_marginStart="@dimen/dimen_16dp"
-                android:layout_marginEnd="@dimen/dimen_16dp"
-                android:paddingTop="@dimen/dimen_8dp"
-                android:textSize="@dimen/text_18sp"
-                android:id="@+id/billing_info_label"
+                android:layout_margin="@dimen/dimen_20dp"
+                android:id="@+id/progress_bar"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_16dp"
-                android:text="Taarifa za Mawasiliano"
-                android:textColor="#444"
-                android:textStyle="bold" />
-
-
-
-
-            <br.com.sapereaude.maskedEditText.MaskedEditText
-                android:visibility="gone"
-                android:layout_marginStart="@dimen/dimen_16dp"
-                android:layout_marginEnd="@dimen/dimen_16dp"
-                android:layout_marginTop="@dimen/dimen_10dp"
-                android:background="@android:color/white"
-                android:id="@+id/phone_number"
-                android:paddingTop="@dimen/dimen_10dp"
-                android:gravity="top"
-                android:focusable="true"
-                android:textSize="@dimen/text_18sp"
-                android:textColor="@color/colorTextPrimary"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="phone"
-                android:maxLines="1"
-                mask:allowed_chars="1234567890"
-                mask:mask="+255(###) ###-###"
-                android:hint="@string/phone_number"
-                app:keep_hint="true" />
-
-
-            <Button
-                android:layout_marginStart="@dimen/dimen_16dp"
-                android:layout_marginEnd="@dimen/dimen_16dp"
-                android:enabled="false"
-                android:elevation="4dp"
-                android:id="@+id/action_pay"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:background="@color/colorAccent"
-                android:clickable="true"
-                android:foreground="?attr/selectableItemBackgroundBorderless"
-                android:text="@string/pay_now"
-                android:textColor="#fff"
-                android:focusable="true"
-                tools:targetApi="lollipop" />
-
-        </LinearLayout>
-
-        <ProgressBar
-            android:layout_centerHorizontal="true"
-            android:visibility="gone"
-            android:layout_margin="@dimen/dimen_20dp"
-            android:id="@+id/progress_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
