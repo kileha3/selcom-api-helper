@@ -157,7 +157,7 @@ class CardFragment : BaseFragment(), CardView, PayCallback{
 
         })
 
-        languageMap = mobileUiLabels[if(furahitechPay.isEnglish) "en" else "swa"]!!
+        languageMap = mobileUiLabels[if(furahitechPay.isCardEnglish) "en" else "swa"]!!
 
         setUpPaymentOptions()
 
@@ -333,7 +333,7 @@ class CardFragment : BaseFragment(), CardView, PayCallback{
     }
 
     override fun onFailre(message: String) {
-        showError(if(FurahitechPay.instance.isEnglish) "Payment flow didn't start successfully, try gain later" else "Malipo hayakufanikiwa kuanza, jaribu tena baadae")
+        showError(if(FurahitechPay.instance.isCardEnglish) "Payment flow didn't start successfully, try gain later" else "Malipo hayakufanikiwa kuanza, jaribu tena baadae")
         Handler().postDelayed({ dismissDialog() }, TimeUnit.SECONDS.toMillis(2))
     }
 

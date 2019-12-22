@@ -160,11 +160,11 @@ class MobileFragment : BaseFragment(), MobileView, PayCallback {
                val clipboard = activity!!.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                val clip = ClipData.newPlainText("payment-token", currentToken)
                clipboard.setPrimaryClip(clip)
-               Toast.makeText(activity!!, if(furahitechPay.isEnglish)  "Token copied" else "Umenakili kumbukumbu namba ya malipo", Toast.LENGTH_LONG).show()
+               Toast.makeText(activity!!, if(furahitechPay.isMobileEnglish)  "Token copied" else "Umenakili kumbukumbu namba ya malipo", Toast.LENGTH_LONG).show()
            }
         }
 
-        languageMap = mobileUiLabels[if(furahitechPay.isEnglish) "en" else "swa"]!!
+        languageMap = mobileUiLabels[if(furahitechPay.isMobileEnglish) "en" else "swa"]!!
 
 
         setUpPaymentOptions()
@@ -253,7 +253,7 @@ class MobileFragment : BaseFragment(), MobileView, PayCallback {
         progressBar.visibility = GONE
         mainHolder.visibility = VISIBLE
         tokenDetailsHolder.visibility = VISIBLE
-        val instruction: Spanned = if(furahitechPay.isEnglish) Html.fromHtml(
+        val instruction: Spanned = if(furahitechPay.isMobileEnglish) Html.fromHtml(
             String.format(response.instructions,
                 "Which is ${response.paymentToken}", "Which is $selectedPrice"
             ) + "<br/> Your payment token is <big><b> ${response.paymentToken}</b></big>"
@@ -283,7 +283,7 @@ class MobileFragment : BaseFragment(), MobileView, PayCallback {
     }
 
     override fun onFailre(message: String) {
-        showError(if(FurahitechPay.instance.isEnglish) "Payment flow didn't start successfully, try gain later" else "Malipo hayakufanikiwa kuanza, jaribu tena baadae")
+        showError(if(FurahitechPay.instance.isMobileEnglish) "Payment flow didn't start successfully, try gain later" else "Malipo hayakufanikiwa kuanza, jaribu tena baadae")
         Handler().postDelayed({ dismissDialog() }, TimeUnit.SECONDS.toMillis(2))
     }
 

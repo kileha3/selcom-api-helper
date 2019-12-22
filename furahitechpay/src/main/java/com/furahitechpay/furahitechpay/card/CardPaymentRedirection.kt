@@ -30,7 +30,7 @@ class CardPaymentRedirection : AppCompatActivity() {
 
     private lateinit var progressDialog: ProgressBar
 
-    private val isEnglish = FurahitechPay.instance.isEnglish
+    private val isEnglish = FurahitechPay.instance.isCardEnglish
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

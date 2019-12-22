@@ -14,7 +14,9 @@ class FurahitechPay {
 
     var paymentType: Int = 2
 
-    var isEnglish: Boolean = false
+    var isMobileEnglish: Boolean = false
+
+    var isCardEnglish: Boolean = false
 
     var activity: FragmentActivity? = null
 
