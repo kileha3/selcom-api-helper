@@ -208,7 +208,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:id="@+id/postal_code"
-                        android:inputType="number"
+                        android:inputType="text"
                         android:textSize="@dimen/text_15sp"
                         android:layout_height="wrap_content"/>
 
