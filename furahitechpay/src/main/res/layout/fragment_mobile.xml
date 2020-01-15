@@ -107,19 +107,28 @@
                 android:layout_marginTop="@dimen/dimen_16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/contact_info_label"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dimen_16dp"
                     android:layout_weight="2"
                     android:text="Taarifa za Mawasiliano"
                     android:textColor="#444"
                     android:textSize="@dimen/text_18sp"
                     android:textStyle="bold" />
+
+                <TextView
+                    android:layout_marginTop="@dimen/dimen_10dp"
+                    android:id="@+id/contact_label"
+                    android:layout_marginBottom="@dimen/dimen_16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Flat No 404, Skyline Apartments, Vizag - 500576" />
+
+
             </LinearLayout>
 
 

@@ -99,6 +99,7 @@ class MobilePresenter(view: MobileView) : BasePresenter<MobileView>(view) {
         internal const val LABEL_BUTTON_INFO = "label_button_info"
         internal const val LABEL_BUTTON_PAY = "label_button_pay"
         internal const val LABEL_HOWTO_PAY = "label_how_topay"
+        internal const val LABEL_CONTACT = "label_contact"
         internal const val LABEL_FIRST_NAME = "fist_name"
         internal const val LABEL_LAST_NAME = "last_name"
         internal const val LABEL_ADRESS = "address"

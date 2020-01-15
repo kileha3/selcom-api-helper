@@ -25,6 +25,7 @@ import com.furahitechpay.furahitechpay.mobile.MobilePresenter.Companion.LABEL_AD
 import com.furahitechpay.furahitechpay.mobile.MobilePresenter.Companion.LABEL_BUTTON_INFO
 import com.furahitechpay.furahitechpay.mobile.MobilePresenter.Companion.LABEL_BUTTON_PAY
 import com.furahitechpay.furahitechpay.mobile.MobilePresenter.Companion.LABEL_CITY_NAME
+import com.furahitechpay.furahitechpay.mobile.MobilePresenter.Companion.LABEL_CONTACT
 import com.furahitechpay.furahitechpay.mobile.MobilePresenter.Companion.LABEL_CONTACT_INFO
 import com.furahitechpay.furahitechpay.mobile.MobilePresenter.Companion.LABEL_COUNTRY_NAME
 import com.furahitechpay.furahitechpay.mobile.MobilePresenter.Companion.LABEL_EXTRA_INFO
@@ -46,12 +47,14 @@ class MobileFragment : BaseFragment(), MobileView, PayCallback {
         "swa" to hashMapOf(
             LABEL_PAYMENT_INFO to "Taarifa za Malipo", LABEL_EXTRA_INFO to "Maelezo",
             LABEL_CONTACT_INFO to "Taarifa za mawasiliano",LABEL_BUTTON_INFO to "Nakili Kumbukumbu Namba",
-            LABEL_BUTTON_PAY to "Tengeneza Kumbukumbu namba", LABEL_HOWTO_PAY to "Jinsi ya kulipia"
+            LABEL_BUTTON_PAY to "Tengeneza Kumbukumbu namba", LABEL_HOWTO_PAY to "Jinsi ya kulipia",
+            LABEL_CONTACT to "Weka namba yako ya simu kwa ajili ya malipo hapo chini"
         ),
         "en" to hashMapOf(
             LABEL_PAYMENT_INFO to "Payment Information", LABEL_EXTRA_INFO to "Extra Information",
             LABEL_CONTACT_INFO to "Contact Information", LABEL_BUTTON_INFO to "Copy Token",
-            LABEL_BUTTON_PAY to "Generate Token",  LABEL_HOWTO_PAY to "Payment Instruction")
+            LABEL_BUTTON_PAY to "Generate Token",  LABEL_HOWTO_PAY to "Payment Instruction",
+            LABEL_CONTACT to "Enter your phone number to be used for payment below")
     )
 
     private val furahitechPay = FurahitechPay.instance
@@ -186,6 +189,7 @@ class MobileFragment : BaseFragment(), MobileView, PayCallback {
         view.findViewById<TextView>(R.id.extra_info_label).text = languageMap[LABEL_EXTRA_INFO]
         view.findViewById<TextView>(R.id.payment_for).text = furahitechPay.paymentRequest!!.paymentForWhat[language]
         view.findViewById<TextView>(R.id.instruction_label).text = languageMap[LABEL_HOWTO_PAY]
+        view.findViewById<TextView>(R.id.contact_label).text = languageMap[LABEL_CONTACT]
         startPaymentBtn.text = languageMap[LABEL_BUTTON_PAY]
     }
 
