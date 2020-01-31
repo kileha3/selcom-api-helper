@@ -2,7 +2,7 @@
     <string name="app_name">FurahitechPay</string>
 
     <string name="billing_information">Billing Information</string>
-    <string name="phone_number">712000000</string>
+    <string name="phone_number">*********</string>
     <string name="summary">Payment summary</string>
     <string name="pay_now">Pay now</string>
     <string name="country_name">Country name</string>
