@@ -260,11 +260,11 @@ class MobileFragment : BaseFragment(), MobileView, PayCallback {
         mainHolder.visibility = VISIBLE
         tokenDetailsHolder.visibility = VISIBLE
         val instruction: Spanned = if(furahitechPay.isMobileEnglish) Html.fromHtml(
-            String.format(response.instructions,
+            String.format(response.instructions?.infoEnglish!!,
                 "Which is ${response.paymentToken}", "Which is $selectedPrice"
             ) + "<br/> Your payment token is <big><b> ${response.paymentToken}</b></big>"
         ) else Html.fromHtml(
-            String.format(response.instructions,
+            String.format(response.instructions?.infoSwahili!!,
                 "Ambayo ni ${response.paymentToken}", "Ambacho ni $selectedPrice"
             ) + "<br/> Kumbukumbu namba yako ya malipo ni <big><b> ${response.paymentToken}</b></big>"
         )

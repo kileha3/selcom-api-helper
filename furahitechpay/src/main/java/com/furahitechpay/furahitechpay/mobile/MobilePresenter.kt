@@ -70,20 +70,20 @@ class MobilePresenter(view: MobileView) : BasePresenter<MobileView>(view) {
             "payment_duration" to paymentRequest.duration,
             "payment_email" to billingInfo.userEmail, "payment_amount" to paymentRequest.amount,
             "payment_phone" to billingInfo.userPhone, "payment_product" to paymentRequest.productId,
-            "payment_remarks" to paymentRequest.remarks, "mno" to mno)
+            "payment_remarks" to paymentRequest.remarks, "payment_name" to "${billingInfo.userFirstName} ${billingInfo.userLastName}")
         if(paymentRequest.orderId.isNotEmpty()){
             paymentData = paymentData.plus("order_id" to paymentRequest.orderId)
         }
         GlobalScope.launch {
             val (_, _, result) = Fuel
-                .post("https://apis.furahitech.co.tz/core/v1/payment/auth/mobile", paymentData)
+                .post("https://api.furahipay.co.tz/v2/payment/create", paymentData)
                 .header(mapOf("x-api-key" to token))
                 .awaitObjectResponseResult(TokenResponse.TokenResponseSerializer())
             result.fold(
                 { data -> view.runOnUiThread(Runnable {
                     handleButtonEnabling(true)
                     view.showPaymentResponse(data)
-                    data.instructions = ""
+                    data.instructions = null
                     payCallback.onSuccess(data)
                 })},
                 { error -> launch(Dispatchers.Main) {payCallback.onFailre(error.message!!)  }}

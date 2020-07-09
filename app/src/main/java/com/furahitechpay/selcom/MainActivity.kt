@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.furahitechpay.furahitechpay.FurahitechPay
 import com.furahitechpay.furahitechpay.FurahitechPay.Companion.PAYMENT_ALL
+import com.furahitechpay.furahitechpay.FurahitechPay.Companion.PAYMENT_MOBILE
 import com.furahitechpay.furahitechpay.callback.PayCallback
 import com.furahitechpay.furahitechpay.model.BillingInfo
 import com.furahitechpay.furahitechpay.model.PaymentRequest
@@ -37,11 +38,11 @@ class MainActivity : AppCompatActivity() {
             userLastName = "Kileha"
         )
 
-        furahitechPay.defaultPhoneForCard = "255712000000"
+        furahitechPay.defaultPhoneForCard = "255712XXXXXX"
         furahitechPay.activity = this
         furahitechPay.isCardEnglish = true
         furahitechPay.isMobileEnglish = false
-        furahitechPay.paymentType = PAYMENT_ALL
+        furahitechPay.paymentType = PAYMENT_MOBILE
         furahitechPay.paymentRequest = request
         furahitechPay.paymentBilling = billing
         furahitechPay.authToken = "dummy"

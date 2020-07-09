@@ -329,7 +329,7 @@ class CardFragment : BaseFragment(), CardView, PayCallback{
     override fun onSuccess(tokenResponse: TokenResponse) {
         showProgressVisible(false)
         val intent = Intent(activity, CardPaymentRedirection::class.java)
-        intent.putExtra(REDIRECTION_URL, Base64.decode(tokenResponse.instructions, Base64.DEFAULT).decodeToString())
+        intent.putExtra(REDIRECTION_URL, Base64.decode(tokenResponse.paymentUrl, Base64.DEFAULT).decodeToString())
         dismissDialog()
         startActivity(intent)
     }
